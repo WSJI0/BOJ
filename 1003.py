@@ -8,7 +8,7 @@ p1=0
 arr=[1,0,1,1]
 
 for n in range(4,45):
-    arr.append((arr[n-2]+arr[n-1]))
+    arr.append(arr[n-2]+arr[n-1])
 
 testCase=int(input())
 for i in range(testCase):
