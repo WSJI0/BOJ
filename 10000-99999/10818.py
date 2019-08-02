@@ -3,8 +3,6 @@
 최소, 최대
 '''
 
-li=[]
-
 n=int(input())
 li=list(map(int,input().split()))
 li.sort()
