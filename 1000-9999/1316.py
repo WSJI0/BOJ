@@ -19,7 +19,7 @@ for i in range(n):
             if word[i2]==word[i2-1]:
                 memo[memo.index(word[i2])+1]+=1
     for i3 in word:
-        if word.count(i3)!=memo[memo.index(word[i2])-1]:
+        if word.count(i3)!=memo[memo.index(i3)+1]:
             no=1
     if no==0:
         count+=1
