@@ -17,5 +17,5 @@ while(coor!=[0,0,0]):
     else:
         ans='wrong'
 
-    if i!=0 and j!=0 and k!=0:
+    if coor!=[0,0,0]:
         print(ans)
