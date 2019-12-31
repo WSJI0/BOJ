@@ -4,11 +4,23 @@
 '''
 
 n,m=list(map(int,input().split()))
+j=[]
+no=0
 
+def check(m,j):
+    for i in range(m):
+        if i!=0:
+            if j[i]==1 and j[i-1]==0:
+                return 0
+    return 1
 
-iA=[]
-jA=[]
 for _ in range(n):
-    i,j=list(map(int,input().split()))
-        iA.append(i)
-        jA.append(j)
+    j=list(map(int,input().split()))
+
+    if check(m,j)==0:
+        no=1
+
+if no==1:
+    print('NO')
+else:
+    print('YES')
