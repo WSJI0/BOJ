@@ -1,3 +1,8 @@
+'''
+2798번
+블랙잭
+'''
+
 n,m=list(map(int,input().split()))
 
 card=list(map(int,input().split()))
@@ -11,7 +16,7 @@ for j2 in range(max(card)+1):
         dp[j2].append([])
         for j4 in range(max(card)+1):
             dp[j2][j3].append(0)
-
+            
 for i in range(n):
     for j in range(i+1,n):
         for k in range(j+1,n):
