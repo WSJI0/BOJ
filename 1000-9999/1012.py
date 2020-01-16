@@ -12,10 +12,16 @@ for _ in range(testCase):
 
     for i in range(m):
         maps.append([])
-        for j in range(n):
+        for _ in range(n):
             maps[i].append(0)
     
     for _ in range(k):
         x,y=list(map(int,input().split()))
         maps[y][x]=1
+    
+    for j in range(len(maps)-1):
+        for k in range(len(maps[j])-1):
+            if j>0 and k>0:
+                if maps[j-1][k-1]==1 or maps[j+1][k-1]==1 or maps[j-1][k+1]==1 or maps[j+1][k+1]==1:
+                    maps[j][k]=0
     print(maps)
