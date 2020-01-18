@@ -7,6 +7,9 @@ testCase=int(input())
 
 maps=[]
 
+def check(n,m):
+    if n<0
+
 for _ in range(testCase):
     m,n,k=list(map(int,input().split()))
 
@@ -21,7 +24,7 @@ for _ in range(testCase):
     
     for j in range(len(maps)-1):
         for k in range(len(maps[j])-1):
-            if j>0 and k>0:
-                if maps[j-1][k-1]==1 or maps[j+1][k-1]==1 or maps[j-1][k+1]==1 or maps[j+1][k+1]==1:
-                    maps[j][k]=0
+            if maps[j-1][k-1]==1 or maps[j+1][k-1]==1 or maps[j-1][k+1]==1 or maps[j+1][k+1]==1:
+                maps[j][k]=0
     print(maps)
+    
