@@ -27,4 +27,3 @@ for _ in range(testCase):
             if maps[j-1][k-1]==1 or maps[j+1][k-1]==1 or maps[j-1][k+1]==1 or maps[j+1][k+1]==1:
                 maps[j][k]=0
     print(maps)
-    
