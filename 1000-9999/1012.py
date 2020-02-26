@@ -8,7 +8,8 @@ testCase=int(input())
 maps=[]
 
 def check(n,m):
-    if n<0
+    if n<0:
+        pass
 
 for _ in range(testCase):
     m,n,k=list(map(int,input().split()))
