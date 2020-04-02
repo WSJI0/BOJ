@@ -27,7 +27,6 @@ def check(li):
             if (i%2==0 and j%2==1) or (i%2==1 and j%2==0):
                 if li[i][j]=='W':
                     mod2+=1
-    print(mod1, mod2)
     return min(mod1, mod2)
 
 
