@@ -19,7 +19,7 @@ def make(n, m, l):
         if check[i]==0:
             t[l]=i
             check[i]=1
-            make(n, m, l+1)
+            make(n,m,l+1)
             check[i]=0
 
 make(n,m,0)
