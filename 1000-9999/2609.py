@@ -8,7 +8,7 @@ n, m=map(int,input().split())
 MAX=max(n,m)
 MIN=min(n,m)
 
-for i in range(1, MAX%MIN+1):
+for i in range(1, MAX+1):
     if n%i==0 and m%i==0:
         GCD=i
 
