@@ -4,7 +4,7 @@
 '''
 
 n=int(input())
-card=list(range(2,n+1,2))
+card=list(range(1,n+1))
 
 while len(card)!=1:
     if len(card)%2==1:
