@@ -40,8 +40,12 @@ class Tree:
             self.postorderTraversal(node.right)
         print(node, end='')
 
-    def makeRoot(self, node, left_node, right_node):
+    def connectLeft(self, node, left_node):
         if self.root==None:
             self.root=node
         node.left=left_node
+
+    def connectRight(self, node, right_node):
+        if self.root==None:
+            self.root=node
         node.right=right_node
