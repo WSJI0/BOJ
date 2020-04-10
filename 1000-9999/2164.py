@@ -6,14 +6,13 @@
 n=int(input())
 card=list(range(2,n+1,2))
 
-i=0
-while True:
-    card.pop(i)
-    if i==len(card)-1:
-        i=0
-    if len(card)==1:
-        break
-    i+=1
+while len(card)!=1:
+    if len(card)%2==1:
+        t=card[1::2]
+        t.insert(0,card[-1])
+        card=t
+    else:
+        card=card[1::2]
 
 if n==1:
     print(1)
