@@ -1,6 +1,9 @@
 '''
-5639번
-이진 검색 트리
+트리
+
+preorderTraversal 전위순회
+inorderTraversal 중위순회
+postorderTraversal 후위순회
 '''
 
 class Node:
@@ -42,23 +45,3 @@ class Tree:
             self.root=node
         node.left=left_node
         node.right=right_node
-
-node=[]
-node.append(Node('A'))
-node.append(Node('B'))
-node.append(Node('C'))
-node.append(Node('D'))
-node.append(Node('E'))
-node.append(Node('F'))
-node.append(Node('G'))
-
-m_tree=Tree()
-for i in range(int(len(node)/2)):
-    m_tree.makeRoot(node[i], node[i*2+1], node[i*2+2])
-
-print("전위순회 : ", end='')
-m_tree.preorderTraversal(m_tree.root)
-print("\n중위순회 : ", end='')
-m_tree.inorderTraversal(m_tree.root)
-print("\n후위순회 : ", end='')
-m_tree.postorderTraversal(m_tree.root)
