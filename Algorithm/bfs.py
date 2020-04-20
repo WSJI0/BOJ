@@ -5,13 +5,7 @@ BFS
 
 from collections import deque
 
-graph={
-    '0':['1', '4'],
-    '1':['1','2'],
-    '2':['0','1','2','3','4'],
-    '3':['2','4'],
-    '4':['0','2','3']
-}
+graph={}
  
 def BFS(graph, start):
     visited={}
@@ -25,4 +19,4 @@ def BFS(graph, start):
             q.extend(graph[node])
     return visited
 
-print(BFS(graph,'0'))
+print(BFS(graph,'1'))
