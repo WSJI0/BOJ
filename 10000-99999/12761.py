@@ -10,7 +10,7 @@ def BFS(start):
     graph={}
     visited={}
     q=deque()
-    q.append(start)
+    q.append([start,0])
 
     while len(q)>0:
         node=q.popleft()
