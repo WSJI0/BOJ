@@ -26,7 +26,7 @@ for i in range(1,int((b-a)**0.5)+1):
         else:
             p.extend([i,(b-a)//i])
 p.sort()
-MIN=99999999999999999
+MIN=99999999999999999999999999
 MINN=0
 for j in range(1,len(p)):
     n=math.ceil(a/p[j])*p[j]-a
