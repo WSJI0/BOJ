@@ -15,4 +15,3 @@ for i in range(1,n):
         cur=a[i]
         cnt+=1
 print(cnt)
-
