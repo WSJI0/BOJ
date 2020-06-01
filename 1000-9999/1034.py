@@ -1,3 +1,8 @@
+'''
+1034번
+램프
+'''
+
 import sys
 
 n, m=map(int, sys.stdin.readline().split())
@@ -15,4 +20,4 @@ for j in board:
     for l in range(len(j)):
         if j[l]==0:
             switch[l]+=1
-
+            
