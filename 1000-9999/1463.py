@@ -4,25 +4,29 @@
 '''
 
 import sys
+input=sys.stdin.readline
 
-n=int(sys.stdin.readline())
-arr=[n]
-co=0
+n=int(input())
 
+cnt=0
+num=[n]
 while True:
+    
     if n==1:
-        print(co)
+        print(0)
         break
     
     a=[]
-    for i in arr:
-        a.append(i-1)
-        if i%3==0:
-            a.append(i//3)
-        if i%2==0:
-            a.append(i//2)
-    arr=a
-    co+=1
-    if 1 in arr:
-        print(co)
+    for i in range(len(num)):
+        a.append(num[i]-1)
+        if num[i]%3==0:
+            a.append(num[i]//3)
+        if num[i]%2==0:
+            a.append(num[i]//2)
+
+    num=a
+    cnt+=1
+    if 1 in num:
+        print(cnt)
         break
+    
