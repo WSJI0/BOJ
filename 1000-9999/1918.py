@@ -22,6 +22,7 @@ for i in a:
     if i.isalpha():
         print(i, end='')
     else:
+        if 
         if len(stack)==0:
             stack.append(i)
         else:
