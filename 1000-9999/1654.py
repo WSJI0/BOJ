@@ -28,5 +28,4 @@ while(l<=r):
     else:
         r=mid-1
     
-
 print(ans)
