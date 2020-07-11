@@ -5,15 +5,28 @@
 
 n=int(input())
 
-for i in range(1, n*2-1):
-    if i%2==1:
-        print("*"*((n-1)*4+1))
-    else:
-        print("* "*(i//2), end='')
-        print(" "*((n-i)//2), end='')
-        print(" *"*(i//2))
+def solve(n):
+    if n==1:
+        print("*")
+        return
+    
+    print("*"*(n*4-3))
+    for i in range(1, n*2-2):
+        print("* "*((i+1)//2), end='')
+        if i%2==0:
+            print("*"*((n-(i+1)//2)*4-3), end='')
+        else:
+            print(" "*((n-(i+1)//2)*4-3), end='')
+        print(" *"*((i+1)//2))
 
-print("* "*(n*2-1))
+    print("* "*(n*2-1))
+    for i in range(n*2-3, 0, -1):
+        print("* "*((i+1)//2), end='')
+        if i%2==0:
+            print("*"*((n-(i+1)//2)*4-3), end='')
+        else:
+            print(" "*((n-(i+1)//2)*4-3), end='')
+        print(" *"*((i+1)//2))
+    print("*"*(n*4-3))
 
-for j in range(n-1):
-    pass
+solve(n)
