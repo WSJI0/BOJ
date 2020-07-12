@@ -3,25 +3,29 @@
 프린터 큐
 '''
 
-testCase=int(input())
+import sys
+input=sys.stdin.readline
 
-importance=[]
-for _ in range(testCase):
-    order=1
-    n,m=map(int,input().split())
-    k=list(map(int,input().split()))
-    
+t=int(input())
+for _ in range(t):
+    n, m=map(int, input().split())
+    q=list(map(int, input().split()))
     for i in range(n):
-        importance.append([k[i],i])
-
-    imNew=[]
-    while(max(k)!=0):
-        for j in range(len(importance)):
-            if importance[j][0]==max(k):
-                imNew.append(importance[j])
-                del importance[j]
-                importance.insert(j,[0,0])
-                k[j]=0
-
-    print(imNew)
-    importance=[]
+        q[i]=[q[i],i]
+    
+    cnt=0
+    while len(q)>0:
+        toPrint=True
+        now=q[0][0]
+        for i in q:
+            if i[0]>now:
+                toPrint=False
+                break
+        if toPrint:
+            p=q.pop(0)
+            cnt+=1
+            if p[1]==m:
+                print(cnt)
+                break
+        else:
+            q.append(q.pop(0))
