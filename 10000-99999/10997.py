@@ -1,13 +1,9 @@
 '''
 10997번
 별 찍기 - 22
+
+미완성
 '''
-'''
+
 import sys
 input=sys.stdin.readline
-
-'''
-
-n=63
-for i in range(1, n):
-    print(i,n-i)
