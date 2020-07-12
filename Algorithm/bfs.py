@@ -18,13 +18,14 @@ graph={
 def bfs(graph, node):
     visited=[]
     queue=[node]
-    
+
     while queue:
         n=queue.pop(0)
         if n not in visited:
             visited.append(n)
+            print("visit", n)
             queue.extend(graph[n])
     return visited
                 
-
+                
 print(bfs(graph,0))
