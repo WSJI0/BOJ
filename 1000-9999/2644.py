@@ -20,10 +20,21 @@ for _ in range(m):
     graph[y].append(x)
 
 queue=[a]
-visited=[]
+visited={}
+cnt=0
+find=False
 while queue:
-    n=queue.pop(0)
-    if n not in visited:
-        visited.append(n)
-        queue.extend(graph[n])
-        print("NNNNNN",n)
+    for i in range(len(queue)):
+        n=queue.pop(0)
+        if n not in visited:
+            if n==b: 
+                find=True
+                break
+            visited[n]=True
+            queue.extend(graph[n])
+    if find: break
+    cnt+=1
+if find:
+    print(cnt)
+else:
+    print(-1)
