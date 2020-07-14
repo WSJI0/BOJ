@@ -8,10 +8,18 @@ import sys
 n=int(sys.stdin.readline())
 a=list(map(int, sys.stdin.readline().split()))
 
-cur=a[0]
-cnt=1
-for i in range(1,n):
-    if a[i]>cur:
-        cur=a[i]
-        cnt+=1
-print(cnt)
+def biSearch(e, target):
+    left=0
+    right=len(target)-1
+    while left<=right:
+        mid=(left+right)//2
+        if target[mid]>e:
+            right=mid-1
+        elif target[mid]<e:
+            left=mid+1
+        else:
+            return mid
+            break
+    return 0
+
+lis=[]
