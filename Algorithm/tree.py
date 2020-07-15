@@ -25,25 +25,20 @@ class Tree:
             self.preorderTraversal(node.left)
         if not node.right==None:
             self.preorderTraversal(node.right)
-        return visited
     
     def inorderTraversal(self, node):
-        visited=[]
         if not node.left==None:
             self.inorderTraversal(node.left)
-        visited.append(noe)
+        print(node, end='')
         if not node.right==None:
             self.inorderTraversal(node.right)
-        return visited
 
     def postorderTraversal(self, node):
-        visited=[]
         if not node.left==None:
             self.postorderTraversal(node.left)
         if not node.right==None:
             self.postorderTraversal(node.right)
-        visited.append(node)
-        return visited
+        print(node, end='')
 
     def connectLeft(self, node, left_node):
         if self.root==None:
