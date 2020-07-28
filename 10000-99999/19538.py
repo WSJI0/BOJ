@@ -4,26 +4,29 @@
 '''
 
 import sys
-import math
 from collections import deque
+import time
 input=sys.stdin.readline
 
 n=int(input())
 
+st=time.time()
+
 graph={}
 for i in range(1, n+1):
-    graph[i]=[]
-for _ in range(n):
-    a=list(map(int, input().split()))[:-1]
-    for i in range(len(a)):
-        for j in range(len(a)):
-            if i==j: continue
-            graph[a[i]].append(a[j])
+    graph[i]=deque()
+for i in range(1, n+1):
+    a=deque(map(int, input().split()))
+    a.popleft()
+    graph[i].extend(a)
 
 m=int(input())
-M=list(map(int, input().split()))
+M=deque(map(int, input().split()))
 
-ans=[-1]*n
+def check(n):
+    return 1 if n>=0.5 else 0
+
+ans=[-1]*(n+1)
 q=deque()
 q.extend(M)
 visited={}
@@ -34,13 +37,15 @@ while q:
         node=q.popleft()
         if node not in visited:
             visited[node]=True
-            ans[node-1]=cnt
-            c=0
+            ans[node]=cnt
             for i in graph[node]:
-                if ans[i-1]!=-1:
-                    c+=1
-                if c>=math.ceil(len(graph[i])):
-                    q.append(graph[i])
+                c=0
+                for j in graph[i]:
+                    if ans[j]!=-1: c+=1
+                if check(c/len(graph[i])) and i not in visited:
+                    q.append(i)
+
     cnt+=1
 
-print(*ans)
+print(*ans[1:])
+print(time.time()-st)
