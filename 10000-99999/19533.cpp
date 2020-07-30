@@ -15,11 +15,11 @@ int modPow(long long int a, long long int n, long long int l){
 }
 
 int len(long long int n){
-	float fnum;
+	double dnum;
 	int ans=0;
 	for(long long int c=1; c>=0; c*=10){
-		fnum=n/c;
-		if(fnum<=0) break;
+		dnum=n/c;
+		if(dnum<=0) break;
 		ans++;
 	}
 	return ans;
