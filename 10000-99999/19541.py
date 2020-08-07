@@ -11,15 +11,15 @@ n, m=map(int, input().split())
 info=[]
 for _ in range(m):
     info.append(list(map(int, input().split()))[1:])
-ans=list(map(int, input().split()))
+ans=[0]+list(map(int, input().split()))
 
-for i in range(m):
-    infect=False
+for i in range(m-1, -1, -1):
     for j in info[i]:
-        if ans[j-1]==1:
-            infect=True
-            break
-    if infect:
-        for j in info[i]:
-            ans[j-1]=0
-print(*ans)
+        if ans[j]!=ans[0]:
+            res="NO"
+
+if res=="NO":
+    print(res)
+else:
+    print("YES")
+    print(*ans[1:])
