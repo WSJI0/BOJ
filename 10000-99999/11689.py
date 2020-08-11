@@ -1,3 +1,8 @@
+'''
+11689번
+GCD(n, k) = 1
+'''
+
 import sys
 input=sys.stdin.readline
 
@@ -12,8 +17,5 @@ def phi(n):
         res-=res//n
     return res
 
-while True:
-    try:
-        n=int(input())
-        print(phi(n)//2)
-    except: break
+n=int(input())
+print(phi(n))

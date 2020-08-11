@@ -1,3 +1,8 @@
+'''
+4355번
+서로소
+'''
+
 import sys
 input=sys.stdin.readline
 
@@ -12,8 +17,8 @@ def phi(n):
         res-=res//n
     return res
 
+
 while True:
-    try:
-        n=int(input())
-        print(phi(n)//2)
-    except: break
+    n=int(input())
+    if n==0: break
+    print(phi(n))
