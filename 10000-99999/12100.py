@@ -12,7 +12,8 @@ board=[]
 for _ in range(n):
     board.append(list(map(int, input().split())))
 
-dp=[]
-for i in range(5):
+dp=[board]
+for _ in range(5):
     a=[]
-    
+    for i in dp:
+        if 
