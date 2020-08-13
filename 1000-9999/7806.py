@@ -12,5 +12,6 @@ while True:
         N=0
         for i in range(1, int(k**0.5)+1):
             if k%i==0:
-                N+=1
+                
+        
     except: break

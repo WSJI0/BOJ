@@ -17,7 +17,6 @@ def phi(n):
         res-=res//n
     return res
 
-
 while True:
     n=int(input())
     if n==0: break
