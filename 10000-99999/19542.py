@@ -18,17 +18,23 @@ for _ in range(n-1):
 
 q=deque()
 q.append(s)
-visited={}
+visited=[0]*(n+1)
 cnt=0
 while q:
-    node=q.pop()
     for _ in range(len(q)):
-        if node not in visited:
-            visited[node]=True
-            for _ in range(d):
-                for i in graph[node]:
-                    if i not in visited:
-                        q.append(i)
+        node=q.popleft()
+        if not visited[node]:
+            visited[node]=cnt
+            q.extend(graph[node])
     cnt+=1
 
-print(cnt)
+print(visited)
+
+'''
+6 1 1
+1 2
+2 3
+2 4
+3 5
+5 6
+'''
