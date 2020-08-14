@@ -13,4 +13,4 @@ int main(void){
 		cout<<result<<"\n";9
 	}
 	cout<<result<<"\n";
-}
+};
