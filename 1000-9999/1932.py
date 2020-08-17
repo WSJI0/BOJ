@@ -21,7 +21,7 @@ for i in range(1, n):
         elif j==i:
             a.append(dp[-1]+tree[i][-1])
             continue
-        if tree[i][j]>tree[i][j+1]:
+        if tree[i][j]>=tree[i][j+1]:
             a.append(dp[j]+tree[i][j])
         else:
             a.append(dp[j]+tree[i][j+1])
