@@ -1,6 +1,6 @@
 '''
-12100번
-2048 (Easy)
+12094번
+2048 (Hard)
 '''
 
 import sys
@@ -10,9 +10,9 @@ input=sys.stdin.readline
 
 n=int(input())
 
-board=[]
+b=[]
 for _ in range(n):
-    board.append(list(map(int, input().split())))
+    b.append(list(map(int, input().split())))
 
 def move(board, direction):
     global n
@@ -75,26 +75,22 @@ def move(board, direction):
     return board
 
 ans=0
-def solve(N, l):
-    global board, ans
-    if N==4:
-        board2=copy.deepcopy(board)
-        for i in l:
-            move(board2, i)
+def solve(N, l): #깊이, 게임판
+    global ans
+    if N==10:
         val=0
-        for i in board2: 
+        for i in l: 
             val=max(val, max(i))
         ans=max(ans, val)
         return
+    val=0
+    for i in l: 
+        val=max(val, max(i))
+    if ans//pow(2,(9-N))>val: return
+    for m in range(1, 5):
+        l2=copy.deepcopy(l)
+        board2=move(l2, m)
+        if board2!=l: solve(N+1, board2) 
 
-    solve(N+1, l+[1])
-    solve(N+1, l+[2])
-    solve(N+1, l+[3])
-    solve(N+1, l+[4])
-
-solve(0, [1])
-solve(0, [2])
-solve(0, [3])
-solve(0, [4])
-
+solve(0, b)
 print(ans)
