@@ -1,8 +1,6 @@
 '''
 10844번
 쉬운 계단 수
-
-미완성
 '''
 
 import sys
@@ -10,8 +8,16 @@ input=sys.stdin.readline
 
 n=int(input())
 
-dp=[[0,0,0,0,0,0,0,0,0,0]*n]
-cnt=0
+dp=[0,1,1,1,1,1,1,1,1,1]
 
-for i in range(1, 10):
-    dp[i]
+for i in range(1, n):
+    a=[0]*10
+    for j in range(10):
+        if j==0: a[1]+=dp[j]
+        elif j==9: a[8]+=dp[j]
+        else: 
+            a[j-1]+=dp[j]
+            a[j+1]+=dp[j]
+    dp=a
+
+print(sum(dp)%1000000000)

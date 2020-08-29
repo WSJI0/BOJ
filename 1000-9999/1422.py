@@ -7,22 +7,20 @@ import sys
 
 k,n=map(int, sys.stdin.readline().split())
 
-a=[]
-maxLen=0
+a=[]; l=0
 for _ in range(k):
-    w=str(sys.stdin.readline().rstrip())
-    a.append(w)
-    maxLen=max(maxLen, len(w))
-a2=list(a)
+    num=int(input())
+    a.append(num)
+    l=max(l, len(str(num)))
 
-for i in range(k):
-    if len(a[i])<maxLen:
-        for _ in range(maxLen-len(a[i])):
-            a[i]+='a'
+if n!=len(a):
+    for _ in range(n-len(a)):
+        a.append(max(a))
+
+for i in range(n):
+    a[i]=str(a[i])+'a'*(l-len(str(a[i])))
 
 a.sort(reverse=True)
 
-for j in range(k):
-    print(a[j].split('a')[0], end=' ')
-for _ in range(n-k):
-    print(a2[0], end=' ')
+a=''.join(a).replace('a','')
+print(a)
