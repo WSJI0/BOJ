@@ -7,26 +7,17 @@ import sys
 
 n=int(sys.stdin.readline())
 ball=[]
-colorSum={}
+ans=[0]*n
+color=[0]*(n+1)
 
 for i in range(n):
     c, s=map(int,sys.stdin.readline().split())
-    ball.append([s,c,i,0])
+    ball.append([s, c, 0, i])
 
 ball.sort(reverse=True)
+for i in range(n-1, -1, -1):
+    ball[i][2]=color[ball[i][1]]+ball[i][0]
+    ans[ball[i][3]]=sum(color)-color[ball[i][1]]
+    color[ball[i][1]]=ball[i][2]
 
-for j in range(n):
-    color=ball[j][1]
-    size=ball[j][0]
-    for k in range(j+1, n):
-        if size>ball[k][0]:
-            colorSum[ball[k][1]]+=ball[k][0]
-            ball[j][3]+=(ball[k][0]-colorSum[ball[j][1]])
-            
-        
-ans={}
-for l in range(n):
-    ans[ball[l][2]]=ball[l][3]
-
-for m in range(n):
-    print(ans[m])
+for i in ans: print(i)
