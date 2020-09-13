@@ -12,11 +12,12 @@ for _ in range(n):
     a.append(list(map(int, input().split())))
 a.sort()
 
-dp=[[i] for i in range(n)]
-
+dp=[1 for _ in range(n)]
 for i in range(n):
+    m=0
     for j in range(i):
-        if a[dp[j][-1]][1]<a[i][1]:
-            dp[j].append(i)
-
-print(n-len(max(dp, key=len)))
+        if a[j][1]<a[i][1]:
+            m=max(dp[j], m)
+    dp[i]+=m
+            
+print(n-max(dp))
