@@ -31,6 +31,6 @@ for i in range(1, n):
         if res!=-1:
             dp[res]=a[i]
     ans=max(ans, len(dp))
-    
-if ans==0: ans+=1
+
+if ans==0: ans=1
 print(ans)
