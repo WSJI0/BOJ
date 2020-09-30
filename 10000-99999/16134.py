@@ -1,6 +1,6 @@
 '''
-15791번
-세진이의 미팅
+16134번
+조합 (Combination)
 '''
 
 import sys

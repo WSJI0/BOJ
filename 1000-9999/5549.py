@@ -15,16 +15,14 @@ board=[]
 for _ in range(m):
     board.append(list(input().rstrip()))
 
-def op(n):
-    return int(n)-1
+pSum=[[0 for _ in range(n+1)]]
+for y in range(1, m+1):
+    pSum.append([0])
+    
 
 for _ in range(k):
-    sx, sy, ex, ey=map(op, input().split())
+    sx, sy, ex, ey=map(int, input().split())
 
     ans=[0,0,0]
-    for y in range(sy, ey+1):
-        for x in range(sx, ex+1):
-            if board[x][y]=='J': ans[0]+=1
-            elif board[x][y]=='O': ans[1]+=1
-            else: ans[2]+=1
+    
     print(*ans)
