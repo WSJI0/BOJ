@@ -8,15 +8,15 @@
 import sys
 input=sys.stdin.readline
 
-n=input().rstrip()
+n=int(input())
 
-ans=[0,0,0,0,0,0,0,0,0,0]
-for i in range(len(n)-1):
-    ans[int(n[i])]+=int(n[i+1:])
-    for j in range(1, int(n[i])):
-        ans[j]+=10**(len(n)-i-1)
+N=0
+for i in range(len(str(n))-1):
+    N+=n//10
 
-for i in range(1, int(n[-1])+1):
-    ans[i]+=1
-
+ans=[N]*10
+'''
+for i in range(1, len(str(n))+1):
+    ans[int(str(n)[-i])]+=int(str(n)[-i+1])
+'''
 print(*ans)
