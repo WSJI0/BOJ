@@ -47,7 +47,7 @@ def F(cube):
     cube[5][0],cube[1][8],cube[1][5],cube[1][2]=\
     cube[3][0],cube[3][3],cube[3][6],cube[5][2],\
     cube[5][1],cube[5][0],cube[1][8],cube[1][5],\
-    cube[1][2],cube[0][8],cube[0][5],cube[0][2]
+    cube[1][2],cube[0][6],cube[0][7],cube[0][8]
 
 def B(cube):
     rotate(cube, 4)

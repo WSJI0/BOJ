@@ -20,7 +20,7 @@ for _ in range(t):
         elif i=='>':
             cursor=min(len(ans), cursor+1)
         elif i=='-':
-            if len(ans)!=0:
+            if len(ans)>=cursor:
                 del ans[cursor-1]
                 cursor-=1
         else:
