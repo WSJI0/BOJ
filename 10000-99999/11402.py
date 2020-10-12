@@ -8,25 +8,15 @@ input=sys.stdin.readline
 
 n, k, m=map(int, input().split())
 
-fac=[1, 1]
-for i in range(2, 2001):
-    fac.append(fac[-1]*i%m)
-
-a=[]; b=[]
-for i in range(60, -1, -1):
-    a.append(n//pow(m, i)); n=n%pow(m, i)
-    b.append(k//pow(m, i)); k=k%pow(m, i)
-
-def modPow(a, n, p):
-    if n==0: return 1
-    res=modPow(a*a%p, n//2, p)
-    if n&1: res=res*a%p
-    return res
-
+b=[]
+for i in range(m):
+    b.append([0]*2001); b[i][0]=1
+    for j in range(1, i+1):
+        b[i][j]=(b[i-1][j-1]+b[i-1][j])%m
+    
 res=1
-for i in range(61):
-    if a[i]==b[i]==0: continue
-    if a[i]<b[i]: res=0
-    else: res*=(fac[a[i]]*modPow(fac[b[i]]*fac[a[i]-b[i]], m-2, m))%m
+while n or k:
+    res*=b[n%m][k%m]
+    n//=m; k//=m; res%=m
 
-print(res%m)
+print(res)
