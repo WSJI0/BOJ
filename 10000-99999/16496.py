@@ -1,6 +1,6 @@
 '''
-1422번
-숫자의 신
+16496번
+큰 수 만들기
 '''
 
 import sys
@@ -14,13 +14,8 @@ def sort2(a):
                 idx=j
         a[idx], a[i]=a[i], a[idx]
 
-k, n=map(int, input().split())
-a=[]; mNum=0
-for _ in range(k):
-    a.append(input().rstrip())
-    if mNum<int(a[-1]):
-        mNum=int(a[-1])
-    
-for _ in range(n-k): a.append(str(mNum))
-sort2(a)
-print(''.join(a))
+n=int(input())
+a=list(input().rstrip().split())
+sort2(a); ans=''.join(a)
+if a.count('0')==len(a): ans='0'
+print(ans)

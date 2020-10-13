@@ -12,6 +12,3 @@ l, k, c=map(int, input().split())
 cut=list(map(int, input().split()))
 cut.sort()
 
-w=[[l]]
-for i in range():
-    
