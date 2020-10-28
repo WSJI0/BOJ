@@ -10,12 +10,14 @@ input=sys.stdin.readline
 
 n=int(input())
 
-b=[]
+b=[]; ori=0
 for _ in range(n):
     b.append(list(map(int, input().split())))
+    ori=max(ori, max(b[-1]))
 
-def move(board, direction):
+def move(board, direction, maxVal):
     global n
+    mV=maxVal
     if direction==1: #우->좌
         for i in range(n):
             mix=-1
@@ -28,6 +30,7 @@ def move(board, direction):
                         board[i][j]=0
                     if board[i][J-1]==board[i][J] and J-1>mix:
                         board[i][J-1]*=2
+                        if mV<board[i][J-1]: mV=board[i][J-1]
                         board[i][J]=0
                         mix=J-1
     elif direction==2: #좌->우
@@ -42,6 +45,7 @@ def move(board, direction):
                         board[i][j]=0
                     if J+1<mix and board[i][J+1]==board[i][J]:
                         board[i][J+1]*=2
+                        if mV<board[i][J+1]: mV=board[i][J+1]
                         board[i][J]=0
                         mix=J+1
     elif direction==3: #하->상
@@ -56,6 +60,7 @@ def move(board, direction):
                         board[j][i]=0
                     if board[J-1][i]==board[J][i] and J-1>mix:
                         board[J-1][i]*=2
+                        if mV<board[J-1][i]: mV=board[J-1][i]
                         board[J][i]=0
                         mix=J-1
     elif direction==4: #상->하
@@ -70,27 +75,22 @@ def move(board, direction):
                         board[j][i]=0
                     if J+1<mix and board[J+1][i]==board[J][i]:
                         board[J+1][i]*=2
+                        if mV<board[J+1][i]: mV=board[J+1][i]
                         board[J][i]=0
                         mix=J+1
-    return board
+    return mV
 
 ans=0
-def solve(N, l): #깊이, 게임판
+def solve(N, l, m): #깊이, 게임판
     global ans
     if N==10:
-        val=0
-        for i in l: 
-            val=max(val, max(i))
-        ans=max(ans, val)
+        if m>ans: ans=m
         return
-    val=0
-    for i in l: 
-        val=max(val, max(i))
-    if ans//pow(2,(9-N))>val: return
-    for m in range(1, 5):
+    if ans//pow(2,(9-N))>m: return
+    for v in range(1, 5):
         l2=copy.deepcopy(l)
-        board2=move(l2, m)
-        if board2!=l: solve(N+1, board2) 
+        mV=move(l2, v, m)
+        if l2!=l: solve(N+1, l2, mV) 
 
-solve(0, b)
+solve(0, b, ori)
 print(ans)
