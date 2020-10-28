@@ -1,6 +1,6 @@
 '''
-8111번
-0과 1
+8112번
+0과 1 - 2
 '''
 
 import sys
@@ -10,9 +10,8 @@ input=sys.stdin.readline
 t=int(input())
 for _ in range(t):
     n=int(input())
-    
-    q=deque()
-    q.append(1)
+    if n==1: print(1); continue
+    q=deque([1])
     visited={}
     while q:
         node=q.popleft()
@@ -22,7 +21,7 @@ for _ in range(t):
                 visited[(node*10)%n]=True
             if (node*10+1)%n not in visited: 
                 q.append(node*10+1)
-                visited[node*10+1]=True
+                visited[(node*10+1)%n]=True
         else:
             if (node*10)%n==0:
                 print(node*10)
