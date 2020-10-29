@@ -4,9 +4,10 @@
 '''
 
 import sys
+input=sys.stdin.readline
 
-word=list(sys.stdin.readline())[:-1]
-bomb=list(sys.stdin.readline())[:-1]
+word=list(input().rstrip())
+bomb=list(input().rstrip())
 
 stack=[]
 for i in range(len(word)):
