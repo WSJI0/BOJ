@@ -1,3 +1,5 @@
+//미완성
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -22,14 +24,17 @@ int main(void){
         int num=1;
         string A, B;
         map<string, int> name;
-        vector<int> F(100001);
         cin>>n;
+        for(int i=0; i<n; i++) parent[i]=i;
         while(n--){
             cin>>A>>B;
             if(name[A]==0) name[A]=num++;
             if(name[B]==0) name[B]=num++;
             merge(name[A], name[B]);
-            
+            int res=0;
+            for(int i=0; i<n; i++)
+                if(parent[i]==find(name[A])) res++;
+            cout<<res<<"\n";
         }
     }
 }
