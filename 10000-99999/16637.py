@@ -10,7 +10,7 @@ from collections import deque
 input=sys.stdin.readline
 
 n=int(input())
-p=deque(input().rstrip())
+p=deque(list(input().rstrip()))
 
 def cal(a, b, o):
     if o=='+': return a+b
