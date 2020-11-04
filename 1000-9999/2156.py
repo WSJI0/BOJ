@@ -7,15 +7,16 @@ import sys
 input=sys.stdin.readline
 
 n=int(input())
-a=[]
+a=[0]
 for _ in range(n):
     a.append(int(input()))
 
-if len(a)<3:
+if len(a)<=3:
     print(sum(a))
 else:
-    dp=[a[0], a[0]+a[1], max(a[0]+a[2], a[1]+a[2])]
-    for i in range(3, n):
-        dp.append(max(dp[i-3]+dp[i-1]+a[i], dp[i-3]+dp[i-2]+a[i]))
+    dp=[0, a[1], a[1]+a[2]]
+    for i in range(3, n+1):
+        dp.append(max(dp[i-3]+a[i-1]+a[i], dp[i-2]+a[i]))
+        dp[-1]=max(dp[-1], dp[-2])
     
     print(max(dp))
