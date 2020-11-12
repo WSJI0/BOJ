@@ -1,7 +1,6 @@
 '''
 11066번
 파일 합치기
-(미완성)
 '''
 
 import sys
@@ -11,7 +10,11 @@ t=int(input())
 for _ in range(t):
     k=int(input())
     a=list(map(int, input().split()))
-    dp=[a[0]]
-    for i in range(1, k):
-        dp.append(dp[-1])
+    dp=[]
+    for _ in range(500): dp.append([0 for _ in range(500)])
+    for i in range(k):
+        for j in range(k):
+            
+
+    print(dp)
     print(dp[-1])
