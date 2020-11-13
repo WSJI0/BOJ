@@ -9,12 +9,9 @@ input=sys.stdin.readline
 t=int(input())
 for _ in range(t):
     k=int(input())
-    a=list(map(int, input().split()))
-    dp=[]
-    for _ in range(500): dp.append([0 for _ in range(500)])
+    dp=[[0 for _ in range(k)] for _ in range(k)]
+    dp[0]=list(map(int, input().split()))
     for i in range(k):
         for j in range(k):
-            
-
+            pass
     print(dp)
-    print(dp[-1])
