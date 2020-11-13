@@ -8,3 +8,4 @@ input=sys.stdin.readline
 
 a=list(input().rstrip())
 b=list(input().rstrip())
+for i in range()
