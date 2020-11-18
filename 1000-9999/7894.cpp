@@ -14,5 +14,5 @@ int main(void){
             ans+=log10(i);
         }
         cout<<(int)(ans+1)<<"\n";
-    }+
+    }
 }
