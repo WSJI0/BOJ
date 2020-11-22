@@ -31,5 +31,4 @@ int main(void){
     for(int i=0; i<v; i++){
         cout<<dist[i]<<" ";
     } cout<<"\n";
-
 }
