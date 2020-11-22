@@ -48,5 +48,8 @@ for _ in range(t):
             if indgree[g]==0:
                 heapq.heappush(q, [s[g], g])
 
-    print(*ans if len(ans)==n else "IMPOSSIBLE")
+    if len(ans)==n:
+        print(*ans)
+    else:
+        print("IMPOSSIBLE")
     print("-----------")
