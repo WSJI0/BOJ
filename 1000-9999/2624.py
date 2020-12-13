@@ -13,3 +13,10 @@ for _ in range(k):
     a, b=map(int, input().split())
     m[a]=b
 
+dp={}; if 1 in m: dp[1]=1
+def solve(n):
+    if n in dp: return dp[n]
+    for i in m.keys():
+        if m[i]
+
+print(solve(t))

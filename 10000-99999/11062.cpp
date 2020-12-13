@@ -10,13 +10,12 @@ int main(void){
     while(t--){
         cin>>n;
         int card[1000];
+        int dp[1000][1000][2];
+        memset(dp, 0, sizeof(dp));
         for(int i=0; i<n; i++) cin>>card[i];
-        int dp[1000][2];
-        for(int i=0; i<n; i++) dp[i][0]=dp[i][1]=0;
-        dp[0][0]=dp[0][1]=card[0];
-        dp[n-1][0]=dp[n-1][1]=card[n-1];
+
         for(int i=0; i<n; i++){
-            dp[i][0]=dp[n-i-1][1];
+            
         }
     }
 }
