@@ -1,4 +1,4 @@
-// 11505 구간 곱 구하기
+// 11505 구간 곱 구하기 (미완성)
 
 #include <bits/stdc++.h>
 using namespace std;

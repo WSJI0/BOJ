@@ -13,7 +13,7 @@ int init(int s, int e, int node){
 
 int sum(int s, int e, int node, int l, int r){
     if(l>e || r<s) return 0;
-    else return tree[node];
+    if(l<=s && e<=r) return tree[node];
     return sum(s, (s+e)/2, node*2, l, r)+sum((s+e)/2+1, e, node*2+1, l, r);
 }
 
