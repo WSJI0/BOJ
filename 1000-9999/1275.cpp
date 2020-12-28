@@ -4,8 +4,8 @@
 using namespace std;
 #define ll long long
 
-int tree[100001*4];
-int arr[100001];
+ll tree[100001*4];
+ll arr[100001];
 
 ll init(int s, int e, int node){
     if(s==e) return tree[node]=arr[s]; 
@@ -18,7 +18,7 @@ ll sum(int s, int e, int node, int l, int r){
     return sum(s, (s+e)/2, node*2, l, r)+sum((s+e)/2+1, e, node*2+1, l, r);
 }
 
-void update(int s, int e, int node, int idx, int val){
+void update(int s, int e, int node, int idx, ll val){
     if(idx<s || idx>e) return;
     tree[node]+=val;
     if(s==e) return;
@@ -28,7 +28,7 @@ void update(int s, int e, int node, int idx, int val){
 
 int main(void){
     ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-    int n, q, x, y, a, b;
+    ll n, q, x, y, a, b;
     cin>>n>>q;
     for(int i=1; i<=n; i++) cin>>arr[i];
 
@@ -39,5 +39,6 @@ int main(void){
         if(x>y) swap(x, y);
         cout<<sum(1, n, 1, x, y)<<"\n";
         update(1, n, 1, a, b-arr[a]);
+        arr[a]=b;
     }
 }
