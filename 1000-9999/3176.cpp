@@ -1,7 +1,8 @@
-// LCA (최소 공통 조상)
+// 3176 도로 네트워크 (미완성)
 
 #include <bits/stdc++.h>
 using namespace std;
+#define ll long long
 
 int depth[100001], ac[100001][21];
 vector<int> graph[100001];
@@ -20,38 +21,53 @@ void getTree(int cur, int parent){
     }   
 }
 
+map<pair<int, int>, int> cost;
+ll dfs(int cur, int des){
+    cout<<"CUR: "<<cur<<"\n";
+    if(cur==des) return cost[make_pair(cur, des)];
+    for(auto g:graph[cur]){
+        if(depth[cur]>depth[des])
+            if(depth[g]>=depth[cur]) continue;
+        if(depth[cur]<depth[des])
+            if(depth[g]<=depth[cur]) continue;
+        return dfs(g, des)+cost[make_pair(cur, g)];
+    }
+}
+
 int main(void){
     ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-    int n, m, a, b, c;
+    int n, k, a, b, c;
     cin>>n;
     for(int i=0; i<n-1; i++){
-        cin>>a>>b;
+        cin>>a>>b>>c;
         graph[a].push_back(b);
         graph[b].push_back(a);
+        cost[make_pair(a, b)]=c;
+        cost[make_pair(b, a)]=c;
     }
     depth[0]=-1;
     getTree(1, 0);
 
-    cin>>m;
-    for(int i=0; i<m; i++){
-        cin>>c>>a>>b;
-        int da=abs(depth[a]-depth[c]), db=abs(depth[a]-depth[c]);
-        if(da!=db){
-            if(da>db) swap(a, b);
+    cin>>k;
+    for(int i=0; i<k; i++){
+        cin>>a>>b;
+        if(depth[a]!=depth[b]){
+            if(depth[a]>depth[b]) swap(a, b);
             for(int j=20; j>=0; j--){
-                if(da<=abs(depth[c]-depth[ac[b][j]])) b=ac[b][j];
+                if(depth[a]<=depth[ac[b][j]]) b=ac[b][j];
             }
         }
-        int ans=a;
+        int lca=a;
         if(a!=b){
             for(int j=20; j>=0; j--){
                 if(ac[a][j]!=ac[b][j]){
                     a=ac[a][j];
                     b=ac[b][j];
                 }
-                ans=ac[a][j];
+                lca=ac[a][j];
             }
         }
+        int ans=dfs(a, lca)+dfs(b, lca);
         cout<<ans<<"\n";
     }
 }

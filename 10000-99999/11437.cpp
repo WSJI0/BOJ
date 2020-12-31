@@ -1,4 +1,4 @@
-// LCA (최소 공통 조상)
+//11437 LCA
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -22,7 +22,7 @@ void getTree(int cur, int parent){
 
 int main(void){
     ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-    int n, m, a, b, c;
+    int n, m, a, b;
     cin>>n;
     for(int i=0; i<n-1; i++){
         cin>>a>>b;
@@ -34,12 +34,11 @@ int main(void){
 
     cin>>m;
     for(int i=0; i<m; i++){
-        cin>>c>>a>>b;
-        int da=abs(depth[a]-depth[c]), db=abs(depth[a]-depth[c]);
-        if(da!=db){
-            if(da>db) swap(a, b);
+        cin>>a>>b;
+        if(depth[a]!=depth[b]){
+            if(depth[a]>depth[b]) swap(a, b);
             for(int j=20; j>=0; j--){
-                if(da<=abs(depth[c]-depth[ac[b][j]])) b=ac[b][j];
+                if(depth[a]<=depth[ac[b][j]]) b=ac[b][j];
             }
         }
         int ans=a;
