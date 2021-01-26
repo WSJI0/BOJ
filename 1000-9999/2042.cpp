@@ -20,7 +20,7 @@ ll sum(int s, int e, int node, int l, int r){
     return sum(s, mid, node*2, l, r)+sum(mid+1, e, node*2+1, l, r);
 }
 
-void update(int s, int e, int node, int idx, int dif){
+void update(int s, int e, int node, int idx, ll dif){
     if(idx<s || idx>e) return;
     tree[node]+=dif;
     if(s==e) return;
