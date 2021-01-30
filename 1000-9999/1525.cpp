@@ -4,13 +4,13 @@
 using namespace std;
 
 int board, ans=-1;
-set<int> check;
+unordered_map<int, bool> check;
 
 int change[4]={1, -1, 3, -3};
 
 int lpow(int a, int n){
-    int res=a;
-    for(int i=0; i<n-1; i++) res*=a;
+    int res=1;
+    for(int i=0; i<n; i++) res*=a;
     return res;
 }
 
@@ -21,26 +21,29 @@ int move(int board, int l, int l2){
 
     board-=lpow(10, l)*tmp;
     board+=lpow(10, l)*tmp2;
-    if(tmp2==0 && l==8) board*=10;
     board-=lpow(10, l2)*tmp2;
     board+=lpow(10, l2)*tmp;
-    if(tmp==0 && l2==8) board*=10;
+
     return board;
 }
 
 void solve(int cnt, int board, int l){
+    if(cnt==2){
+        cout<<board<<"\n";
+    }
     if(ans!=-1) return;
-    if(board==123456780){
+    if(board==123405786){
         ans=cnt;
         return;
     }
     for(int i=0; i<4; i++){
-        if(l+change[i]>=0 && l+change[i]<9){
-            int b=move(board, l, change[i]+l);
-            cout<<change[i]<<" "<<b<<"\n";
-            if(check.find(b)==check.end()){
-                check.insert(board);
-                //solve(cnt+1, b, change[i]+l);
+        int L=l+change[i];
+        if(L>=0 && L<9){
+            if((l%3==2 && i==0) || (l%3==0 && i==1)) continue; 
+            int b=move(board, l, L);
+            if(!check[b]){
+                check[b]=true;
+                solve(cnt+1, b, L);
             }
         }
     }
@@ -52,7 +55,9 @@ int main(void){
     int b, c;
     for(int i=0; i<9; i++){
         cin>>b;
-        if(b==0) c=i;
+        if(b==0){
+            c=i; b=9;
+        }
         board*=10; board+=b;
     }
 
