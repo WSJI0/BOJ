@@ -1,4 +1,4 @@
-// 20119번 클레어와 물약
+// 20119번 클레어와 물약 (미완성)
 
 #include <bits/stdc++.h>
 using namespace std;
