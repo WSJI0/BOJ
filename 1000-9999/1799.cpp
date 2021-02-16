@@ -11,6 +11,7 @@ bool check(int cur){
     int mx=cur%n;
     while(1){
         if(--my<0 || ++mx>=n) break;
+        
         if(visited[my][mx]) return false;
     }
     my=cur/n;

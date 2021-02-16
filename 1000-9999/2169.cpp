@@ -1,42 +1,48 @@
-//2169 로봇 조종하기 (미완성)
+//2169 로봇 조종하기
 
 #include <bits/stdc++.h>
 using namespace std;
+#define INF -200000000
 
 int n, m, board[1001][1001], dp[1001][1001];
-int mv[3][2]={{1, 0}, {0, 1}, {0, -1}};
+bool visited[1001][1001];
+int mov[3][2]={
+    {0, -1}, {-1, 0}, {0, 1}
+};
 
-int solve(int y, int x, int d){
-    if(board[y][x]==101) return dp[y][x];
-    for(int j=0; j<3; j++){
-        int vy=-mv[j][0]+y;
-        int vx=-mv[j][1]+x;
-        if(0<=vx && vx<m && 0<=vy && vy<n && d!=mv[j][1]){
-            dp[y][x]=max(dp[y][x], solve(vy, vx, -mv[j][1])+board[y][x]);
+int solve(int y, int x){
+    if(dp[y][x]!=INF) return dp[y][x];
+
+    int& ret=dp[y][x];
+    for(auto v:mov){
+        int my=y+v[0], mx=x+v[1];
+        if(0<=my && 0<=mx){
+            ret=max(ret, solve(my, mx)+board[y][x]);
         }
     }
-    board[y][x]=101;
-    return dp[y][x];
+    return ret;
+}
+
+void print(){
+    for(int i=0; i<n; i++){
+        for(int j=0; j<m; j++) cout<<dp[i][j]<<" ";
+        cout<<"\n";
+    }
 }
 
 int main(void){
     ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+    
     cin>>n>>m;
     for(int i=0; i<n; i++){
         for(int j=0; j<m; j++){
             cin>>board[i][j];
+            dp[i][j]=INF;
         }
     }
-    dp[0][0]=board[0][0]; board[0][0]=101;
-    for(int i=0; i<n; i++){
-        for(int j=0; j<m; j++){
-            solve(i, j, 0);
-        }
-    }
+    
+    dp[0][0]=board[0][0];
+    cout<<solve(n-1, m-1)<<"\n";
 
-    for(int i=0; i<n; i++){
-        for(int j=0; j<m; j++){
-            cout<<dp[i][j]<<" ";
-        }cout<<"\n";
-    }
+    print();
 }
