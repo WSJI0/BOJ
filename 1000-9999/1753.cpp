@@ -1,41 +1,46 @@
+// 1753번 최단경로
+
 #include <bits/stdc++.h>
 using namespace std;
-#define INF_NUM 9999999
+#define INF 987654321
 
-int V, E, K, u, v, w;
+int V, E, K, u, v, w, dist[20001];
 vector<pair<int, int>> graph[20001];
-vector<int> dijkstra(int);
+
 int main(void){
     ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+    
     cin>>V>>E>>K;
+    
+    for(int i=1; i<=V; i++) dist[i]=INF;
+
     for(int i=0; i<E; i++){
         cin>>u>>v>>w;
-        graph[u].push_back(pair<int, int>(v, w));
-    } 
-    dijkstra(K);
-}
+        graph[u].push_back(make_pair(v, w));
+    }
+    
+    dist[K]=0;
+    priority_queue<pair<int, int>> q;
+    q.push(make_pair(0, K));
 
-vector<int> dijkstra(int s){
-    vector<int> dist(V+1, INF_NUM);
-    dist[s]=0;
-    priority_queue<pair<int, int>> pq;
-    pq.push(pair<int, int>(0, s));
-    while(!pq.empty()){
-        int cost=-pq.top().first;
-        int cur=pq.top().second;
-        pq.pop();
-        if(dist[cur]<cost) continue;
+    while(!q.empty()){
+        int cur=q.top().second;
+        int cos=-q.top().first;
+        q.pop();
+
+        if(cos>dist[cur]) continue;
         for(int i=0; i<graph[cur].size(); i++){
             int f=graph[cur][i].first;
-            int nxt=cost+graph[cur][i].second;
-            if(dist[f]>nxt){
+            int nxt=graph[cur][i].second+cos;
+            if(nxt<dist[f]){
                 dist[f]=nxt;
-                pq.push(pair<int, int>(-nxt, f));
+                q.push(make_pair(-nxt, f));
             }
         }
     }
+
     for(int i=1; i<=V; i++){
-        if(dist[i]!=INF_NUM) cout<<dist[i]<<endl;
-        else cout<<"INF"<<endl;
+        if(dist[i]==INF) cout<<"INF"<<"\n";
+        else cout<<dist[i]<<"\n";
     }
 }
