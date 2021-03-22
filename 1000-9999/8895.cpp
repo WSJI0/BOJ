@@ -20,6 +20,6 @@ int main(void){
     cin>>t;
     while(t--){
         cin>>n>>l>>r;
-        cout<<dp[n][l][r]<<"\n";
+        cout<<dp[n][l][r]<<"\n";`1
     }
 }

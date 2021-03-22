@@ -49,6 +49,6 @@ for _ in range(t):
                                         q.append((mx, my, nd, nk))
                                     else:
                                         if not nk&(1<<(ord(board[my][mx])-65)):
-                                            q.append((mx, my, nd, nk))
+                                            q.append((mx, my, nd, nk)) 
 
     print(ans)
