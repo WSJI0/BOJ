@@ -2,20 +2,7 @@
 
 #include <bits/stdc++.h>
 using namespace std;
-
-int parent[3001], cnt[3001];
-
-int find(int u){
-    if(u==parent[u]) return u;
-    return parent[u]=find(parent[u]);
-}
-
-void merge(int u, int v){
-    u=find(u); v=find(v);
-    if(u==v) return;
-    if(u>v) parent[u]=v;
-    else parent[v]=u;
-}
+#define p(X, Y) make_pair(X, Y)
 
 int ccw(pair<int, int> a, pair<int, int> b, pair<int, int> c){
     int res=(a.first*b.second+b.first*c.second+c.first*a.second)-(a.second*b.first+b.second*c.first+c.second*a.first);
@@ -38,27 +25,39 @@ bool cross(pair<int, int> a, pair<int, int> b, pair<int, int> c, pair<int, int> 
 int main(void){
     ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 
-    int n;
-    pair<int, int> line[3001][2];
-    cin>>n;
+    int t, xmin, ymin, xmax, ymax;
+    pair<int, int> pos1, pos2;
+    
+    cin>>t;
+    while(t--){
+        cin>>xmin>>ymin>>xmax>>ymax;
+        cin>>pos1.first>>pos1.second>>pos2.first>>pos2.second;
 
-    for(int i=0; i<n; i++) parent[i]=i;
+        int cnt=0;
+        if(cross(pos1, pos2, p(xmin, ymin), p(xmin, ymax))) cnt++;
+        if(cross(pos1, pos2, p(xmin, ymin), p(xmax, ymin))) cnt++;
+        if(cross(pos1, pos2, p(xmax, ymax), p(xmin, ymax))) cnt++;
+        if(cross(pos1, pos2, p(xmax, ymax), p(xmax, ymin))) cnt++;
+        
+        if(cross(pos1, pos2, p(xmin, ymin), p(xmin, ymin))) cnt--;
+        if(cross(pos1, pos2, p(xmin, ymax), p(xmin, ymax))) cnt--;
+        if(cross(pos1, pos2, p(xmax, ymin), p(xmax, ymin))) cnt--;
+        if(cross(pos1, pos2, p(xmax, ymax), p(xmax, ymax))) cnt--;
 
-    for(int i=0; i<n; i++){
-        cin>>line[i][0].first>>line[i][0].second;
-        cin>>line[i][1].first>>line[i][1].second;
-        for(int j=0; j<i; j++){
-            if(cross(line[i][0], line[i][1], line[j][0], line[j][1]))
-                merge(i, j);
+        int x1=pos1.first, y1=pos1.second, x2=pos2.first, y2=pos2.second;
+        if(x1>x2) swap(x1, x2);
+        if(y1>y2) swap(y1, y2);
+        if((y1==ymin && y2==ymin) || (y1==ymax && y2==ymax)){
+            cnt=1;
+            if((xmin<=x1 && x1<xmax) || (xmin<x2 && x2<=xmax)) cnt=4;
+            if(x1<=xmin && x2>=xmax) cnt=4;
         }
+        if((x1==xmin && x2==xmin) || (x1==xmax && x2==xmax)){
+            cnt=1;
+            if((ymin<=y1 && y1<ymax) || (ymin<y2 && y2<=ymax)) cnt=4;
+            if(y1<=ymin && y2>=ymax) cnt=4;
+        }
+        
+        cout<<cnt<<"\n";
     }
-
-    int ans1=0, ans2=0;
-    for(int i=0; i<n; i++) cnt[find(i)]++;
-    for(int i=0; i<n; i++){
-        ans2=max(ans2, cnt[i]);
-        if(cnt[i]) ans1++;
-    }
-
-    cout<<ans1<<"\n"<<ans2<<"\n";
 }
