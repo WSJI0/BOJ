@@ -2,21 +2,42 @@
 
 #include <bits/stdc++.h>
 using namespace std;
+#define ll long long
+#define mod 1000000000
 
-int n, dp[10][101];
+int n;
+int dp[101][10][1024];
 
-int solve(int s, int n){
-    if(dp[s][n]!=-1) return dp[s][n];
+int solve(int l, int d, int visited){
+    if(l==n){
+        if(visited==0) return 1;
+        return 0;
+    }
+    if(dp[l][d][visited]!=-1) return dp[l][d][visited];
 
+    ll res=0;
+    if(d-1>=0){
+        res+=solve(l+1, d-1, visited&~(1<<(d-1)));
+    }
+    if(d+1<=9){
+        res+=solve(l+1, d+1, visited&~(1<<(d+1)));
+    }
+    return dp[l][d][visited]=res%mod;
 }
 
 int main(void){
     ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-    
-    memset(dp, -1, sizeof(dp));
-    for(int i=0; i<10; i++) dp[0][i]=0;
-    dp[10]=1;
 
     cin>>n;
-    cout<<solve(0, n)<<"\n";
+    if(n<10) cout<<"0"<<"\n";
+    else{
+        ll ans=0;
+        for(int i=1; i<=9; i++){
+            memset(dp, -1, sizeof(dp));
+            int visited=(1<<10)-1;
+            ans=(ans+solve(1, i, visited&~(1<<i)))%mod;
+        }
+
+        cout<<ans<<"\n";
+    }
 }

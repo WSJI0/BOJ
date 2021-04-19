@@ -4,30 +4,29 @@
 using namespace std;
 #define INF -200000000
 
-int n, m, board[1001][1001], dp[1001][1001];
+int n, m, board[1001][1001], dp[3][1001][1001];
 bool visited[1001][1001];
 int mov[3][2]={
     {0, -1}, {-1, 0}, {0, 1}
 };
 
-int solve(int y, int x){
-    if(dp[y][x]!=INF) return dp[y][x];
+int solve(int y, int x, int pre){
+    if(y==0 && x==0) return board[0][0];
 
-    int& ret=dp[y][x];
-    for(auto v:mov){
-        int my=y+v[0], mx=x+v[1];
-        if(0<=my && 0<=mx){
-            ret=max(ret, solve(my, mx)+board[y][x]);
+    int& ret=dp[pre][y][x];
+    if(ret!=INF) return ret;
+
+    visited[y][x]=1;
+
+    for(int v=0; v<3; v++){
+        int my=y+mov[v][0], mx=x+mov[v][1];
+        if(0<=my && 0<=mx && mx<m){
+            if(!visited[my][mx]) ret=max(ret, solve(my, mx, v)+board[y][x]);
         }
     }
-    return ret;
-}
 
-void print(){
-    for(int i=0; i<n; i++){
-        for(int j=0; j<m; j++) cout<<dp[i][j]<<" ";
-        cout<<"\n";
-    }
+    visited[y][x]=0;
+    return ret;
 }
 
 int main(void){
@@ -37,12 +36,9 @@ int main(void){
     for(int i=0; i<n; i++){
         for(int j=0; j<m; j++){
             cin>>board[i][j];
-            dp[i][j]=INF;
+            for(int k=0; k<3; k++) dp[k][i][j]=INF;
         }
     }
     
-    dp[0][0]=board[0][0];
-    cout<<solve(n-1, m-1)<<"\n";
-
-    print();
+    cout<<solve(n-1, m-1, 0)<<"\n";
 }

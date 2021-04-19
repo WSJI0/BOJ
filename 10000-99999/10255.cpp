@@ -11,7 +11,7 @@ int ccw(pair<int, int> a, pair<int, int> b, pair<int, int> c){
     return 0;
 }
 
-bool cross(pair<int, int> a, pair<int, int> b, pair<int, int> c, pair<int, int> d){
+int cross(pair<int, int> a, pair<int, int> b, pair<int, int> c, pair<int, int> d){
     int A=ccw(a, b, c)*ccw(a, b, d);
     int B=ccw(a, c, d)*ccw(b, c, d);
     if(A==0 && B==0){
