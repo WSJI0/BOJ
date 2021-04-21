@@ -1,44 +1,45 @@
-//1509 팰린드롬 분할 (미완성)
+//1509 팰린드롬 분할
 
 #include <bits/stdc++.h>
 using namespace std;
+#define INF 987654321
 
 string s;
-int dp[2501][2501];
-bool p[2501][2501];
+int dp[2501], p[2501][2501];
 
-bool check(int l, int r){
-    if(l==r) return 1;
-    if(p[l][r]!=-1) return p[l][r];
-    if(r-1==l && s[l]==s[r]) return p[l][r]=1;
-    else p[l][r]=0;
-
-    if(r>l) return 0;
-
-    return p[l][r]=(check(l+1, r-1) && (s[l]==s[r]));
-}
-
-int solve(int l, int r){
-    if(l==r) return 1;
-    int& ret=dp[l][r];
-
-    if(ret!=-1) return ret; 
-    ret=0;
-    if(p[l][r]==1) ret++;
-    
-    for(int i=l; i<r; i++){
-        int L=solve(l, i), R=solve(i+1, r);
-        if(L && R) ret++;
+int check(int l, int r){
+    if(l==r) return p[l][r]=1;
+    if(l+1==r){
+        if(s[l]==s[r]) return 1;
+        return 0;
     }
-    return ret;
+    if(p[l][r]!=INF) return p[l][r];
+    if(check(l+1, r-1)==1 && s[l]==s[r]) return p[l][r]=1;
+    return p[l][r]=0;
 }
 
 int main(void){
     ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
     
     cin>>s;
-    memset(dp, -1, sizeof(dp));
-    memset(p, -1, sizeof(p));
+    for(int i=0; i<2500; i++){
+        for(int j=0; j<2500; j++){
+            p[i][j]=INF;
+        } dp[i]=INF;
+    }
 
-    cout<<solve(0, s.size()-1)<<"\n";
+    dp[0]=1;
+    for(int i=1; i<s.size(); i++){
+        dp[i]=dp[i-1]+1;
+        if(check(0, i)){
+            dp[i]=1;
+            continue;
+        }
+        for(int j=1; j<i; j++){
+            if(check(j, i)){
+                dp[i]=min(dp[i], dp[j-1]+1);
+            }
+        }
+    }
+    cout<<dp[s.size()-1]<<"\n";
 }
