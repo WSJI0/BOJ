@@ -1,44 +1,65 @@
-#include<bits/stdc++.h>
-using namespace std;
-typedef int ll;
- 
-ll arr[1508][1508];
-ll ld[808][808];
-ll rd[808][808];
-ll lu[808][808];
-ll ru[808][808];
- 
-int main(){
-    ll i,j,k,l,m,n;
-    scanf("%d %d",&n,&m);
-    for(i=1;i<=n;i++)
-        for(j=1;j<=m;j++)
-            scanf("%1d",&arr[i][j]);
- 
-    for(i=n;i>=1;i--)
-        for(j=1;j<=m;j++)
-            if(arr[i][j]==1){
-                ld[i][j]=ld[i+1][j-1]+1; //3
-                rd[i][j]=rd[i+1][j+1]+1; //2
-            }
- 
-    for(i=1;i<=n;i++)
-        for(j=1;j<=m;j++)
-            if(arr[i][j]==1){
-                lu[i][j]=lu[i-1][j-1]+1; //0
-                ru[i][j]=ru[i-1][j+1]+1; //1
-            } 
+#include <iostream>
+#include<queue>
+#include<string>
 
-    ll ans=0;
-    for(i=1;i<=n;i++)
-        for(j=1;j<=m;j++){
-            cout<<min(ru[i][j], rd[i][j])<<"\n";
-            for(k=1;k<=min(ld[i][j],rd[i][j]);k++)
-                if(arr[i+2*(k-1)][j]&&lu[i+2*(k-1)][j]>=k&&ru[i+2*(k-1)][j]>=k)
-                    ans=max(ans,k);
-            for(k=1;k<=min(ru[i][j],rd[i][j]);k++)
-                if(arr[i][j+2*(k-1)]&&lu[i][j+2*(k-1)]>=k&&ld[i][j+2*(k-1)]>=k)
-                    ans=max(ans,k);    
-        }
-    printf("%d",ans);
+using namespace std;
+
+struct Que {
+	int x;
+	int time;
+};
+
+bool vis[500001][2];
+
+int sum(int n) {
+	return n * (n + 1) / 2;
+}
+
+
+int main()
+{
+	int N, K;//언니 위치 : N, 동생위치 : K
+	cin >> N >> K;
+	
+	queue<Que> Q;
+	Q.push({ N,0 });
+	vis[N][0] = true;
+	
+	int answer = -1, i = 0;
+	int nk;
+
+	while (1) {
+		int size = Q.size();
+		nk = K + sum(i);
+		//cout << "nk=" << nk<<endl;
+		if (nk < 0 or nk>500000) {
+			break;
+		}
+		while (size--) {
+			auto cur = Q.front();
+			//cout << "cur.x=" <<cur.x << endl;
+			Q.pop();
+			if (cur.x == nk or vis[nk][i%2]==true) {
+				answer = i;
+				goto ijsilver;
+			}
+			if (cur.x - 1 >= 0 and vis[cur.x - 1][(cur.time + 1) % 2] == false) {
+				Q.push({ cur.x - 1,cur.time + 1 });
+				vis[cur.x - 1][(cur.time + 1) % 2]=true;
+			}
+			if (cur.x + 1 <= 500000 and vis[cur.x + 1][(cur.time + 1) % 2] == false) {
+				Q.push({ cur.x + 1,cur.time + 1 });
+				vis[cur.x + 1][(cur.time + 1) % 2]=true;
+			}
+			if (cur.x *2 <= 500000 and vis[cur.x *2][(cur.time + 1) % 2] == false) {
+				Q.push({ cur.x*2,cur.time + 1 });
+				vis[cur.x*2][(cur.time + 1) % 2]=true;
+			}
+		}
+		i++;
+
+	}
+ijsilver:
+	cout << answer << endl;
+
 }

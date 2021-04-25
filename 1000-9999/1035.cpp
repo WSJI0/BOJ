@@ -3,67 +3,80 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int cnt, ans=987654321, mov[4][2]={{10, 0}, {0, 1}, {-10, 0}, {0, -1}}, my, mx;
-char b;
-
-bool visited[56][56][56][56][56];
 vector<int> star;
+int cnt, ans=987654321, board=(1<<25)-1;
+int mov[4][2]={
+    {1, 0}, {0, 1}, {-1, 0}, {0, -1}
+};
+char b;
+bool visited[1<<25], c[6][6];
+
+bool getBit(int b, int i){
+    return b&(1<<i);
+}
+int changeBit(int b, int i, bool a){
+    if(a) return b|(1<<i);
+    else return b&~(1<<i);
+}
 
 void print(){
-    for(int i=0; i<cnt; i++) cout<<star[i]<<" ";
-    cout<<"\n";
+    for(int i=0; i<5; i++){
+        for(int j=0; j<5; j++){
+            if(getBit(board, i*5+j)) cout<<".";
+            else cout<<"*";
+        } cout<<"\n";
+    }
+    cout<<"---------------\n";
 }
 
 bool check(){
-    int res=0, c=0;
-    for(int i=0; i<cnt; i++){
-        for(int j=0; j<cnt; j++){
-            if(i==j) continue;
-            for(auto v:mov){
-                my=v[0]+(star[i]/10)*10;
-                mx=v[1]+star[i]%10;
-                if(my>=10 && my<=50 && mx>=1 && mx<=5 && my+mx==star[j]){
-                    c=1;
-                    break;
-                }
-            } if(c){
-                c=0;
+    int res=1;
+    memset(c, 0, sizeof(c));
+
+    queue<int> q;
+    q.push(star[0]);
+    c[star[0]/5][star[0]%5]=1;
+
+    while(!q.empty()){
+        int node=q.front(); q.pop();
+        for(auto v:mov){
+            int my=(node/5)+v[0];
+            int mx=(node%5)+v[1];
+            if(0<=mx && mx<5 && 0<=my && my<5){
+                if(c[my][mx]) continue;
+                if(getBit(board, my*5+mx)) continue;
+                c[my][mx]=1;
+                q.push(my*5+mx);
                 res++;
-                break;
             }
         }
     }
+    if(res==cnt) print();
     if(res==cnt) return true;
     return false;
 }
 
-void change(int idx, int val){
-    for(int i=0; i<cnt; i++){
-        if(idx==i) if(visited[i][val])
-    }
-}
-
-void dfs(int res){
-    print();
+void solve(int res){
     if(check()) ans=min(ans, res);
+
     for(int i=0; i<cnt; i++){
+        int y=star[i]/5, x=star[i]%5;
         for(auto v:mov){
-            my=v[0]+(star[i]/10)*10;
-            mx=v[1]+star[i]%10;
-            if(my>=10 && my<=50 && mx>=1 && mx<=5){
-                for(int j=0; j<cnt; j++) if(star[j]==my+mx) continue;
-                int vv=0;
-                for(int j=0; j<cnt; j++){
-                    if(j==i) if(visited[i][my+mx]) vv++;
-                    else if(visited[j][star[j]]) vv++;
+            int my=y+v[0];
+            int mx=x+v[1];
+            if(0<=mx && mx<5 && 0<=my && my<5){
+                if(!getBit(board, my*5+mx)) continue;
+                board=changeBit(board, my*5+mx, 0);
+                board=changeBit(board, y*5+x, 1);
+                if(!visited[board]){
+                    star[i]=my*5+mx;
+                    visited[board]=1;
+                    solve(res+1);
+                    star[i]=y*5+x;
+                    visited[board]=0;
                 }
-                if(vv!=cnt){
-                    visited[i][my+mx]=1;
-                    star[i]=my+mx;
-                    dfs(res+1);
-                    visited[i][my+mx]=0;
-                    star[i]-=(v[0]+v[1]);
-                }
+                board=changeBit(board, my*5+mx, 1);
+                board=changeBit(board, y*5+x, 0);
             }
         }
     }
@@ -72,15 +85,16 @@ void dfs(int res){
 int main(void){
     ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
     
-    for(int i=1; i<=5; i++){
-        for(int j=1; j<=5; j++){
+    for(int i=0; i<5; i++){
+        for(int j=0; j<5; j++){
             cin>>b;
             if(b=='*'){
-                star.push_back(i*10+j);
+                star.push_back(i*5+j);
+                board=changeBit(board, i*5+j, 0);
                 cnt++;
             }
         }
     }
-    dfs(0);
+    solve(0);
     cout<<ans<<"\n";
 }
