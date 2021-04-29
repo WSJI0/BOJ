@@ -1,65 +1,87 @@
-#include <iostream>
-#include<queue>
-#include<string>
 
+#include <bits/stdc++.h>
 using namespace std;
 
-struct Que {
-	int x;
-	int time;
-};
+#define MAXT 300000
+#define MAXA 25
 
-bool vis[500001][2];
+int lenA, lenT;
+string A, T;
 
-int sum(int n) {
-	return n * (n + 1) / 2;
-}
+struct stack {
+   int top;
+   char x[MAXT+1];
+   char w[MAXA];
+
+   void init( string& A ) {
+      for( int i = 0; i < lenA; ++i ) w[i] = A[lenA-1-i];
+      top = 0;
+   }
+
+   int add( char c ) {
+      int ret = 0;
+      x[top++] = c;
+      if( top >= lenA ) {
+         ret = 1;
+         for( int i = 0; i < lenA; ++i ) 
+            if( x[top-i-1] != w[i] ) 
+               ret = 0;
+         if( ret ) top -= lenA;
+      }
+      return ret;
+   }
+   void print(){
+	   cout<<" print : ";
+	   for(int i=0; i<top; i++) cout<<x[i]<<" ";
+	   cout<<"\n";
+   }
+} L, D;
+
+int main( void ) {
+   /*
+   cin>>A; lenA = A.length();
+   cin>>T; lenT = T.length();
+   L.init( A );
+   reverse( A.begin(), A.end() );
+   D.init( A );
+
+   int turn = 0;
+   int lpos = 0, dpos = lenT-1;
+   while( lpos <= dpos ) {
+	   if( turn == 0 ) turn ^= L.add( T[lpos++] );
+      else turn ^= D.add( T[dpos--] );
+	  L.print();
+	  D.print();
+	  cout<<"-------------"<<"\n";
+   }
+      
+
+   D.print();
+   while( L.top ){
+      cout<<"added : "<<L.x[L.top-1]<<"\n";
+      D.add( L.x[--L.top] );
+   }
+
+   D.print();
+
+   while( D.top ) printf( "%c", D.x[--D.top] );
+   printf( "\n" );
+   */
+  string A="abcd";
+   L.init(A);
+   L.print();
+
+   L.add('a');
+   L.print();
+   L.add('b');
+   L.print();
+   L.add('c');
+   L.print();
+   L.add('d');
+   L.print();
+   L.add('e');
+   L.print();
 
 
-int main()
-{
-	int N, K;//언니 위치 : N, 동생위치 : K
-	cin >> N >> K;
-	
-	queue<Que> Q;
-	Q.push({ N,0 });
-	vis[N][0] = true;
-	
-	int answer = -1, i = 0;
-	int nk;
-
-	while (1) {
-		int size = Q.size();
-		nk = K + sum(i);
-		//cout << "nk=" << nk<<endl;
-		if (nk < 0 or nk>500000) {
-			break;
-		}
-		while (size--) {
-			auto cur = Q.front();
-			//cout << "cur.x=" <<cur.x << endl;
-			Q.pop();
-			if (cur.x == nk or vis[nk][i%2]==true) {
-				answer = i;
-				goto ijsilver;
-			}
-			if (cur.x - 1 >= 0 and vis[cur.x - 1][(cur.time + 1) % 2] == false) {
-				Q.push({ cur.x - 1,cur.time + 1 });
-				vis[cur.x - 1][(cur.time + 1) % 2]=true;
-			}
-			if (cur.x + 1 <= 500000 and vis[cur.x + 1][(cur.time + 1) % 2] == false) {
-				Q.push({ cur.x + 1,cur.time + 1 });
-				vis[cur.x + 1][(cur.time + 1) % 2]=true;
-			}
-			if (cur.x *2 <= 500000 and vis[cur.x *2][(cur.time + 1) % 2] == false) {
-				Q.push({ cur.x*2,cur.time + 1 });
-				vis[cur.x*2][(cur.time + 1) % 2]=true;
-			}
-		}
-		i++;
-
-	}
-ijsilver:
-	cout << answer << endl;
-
+   return 0;
 }
