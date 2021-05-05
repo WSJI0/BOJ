@@ -5,6 +5,11 @@ using namespace std;
 
 int n, m, x, y, w, parent[100001];
 
+void merge(int u, int v){
+    if(u==v) return;
+    
+}
+
 int main(void){
     ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
     
