@@ -4,9 +4,11 @@
 using namespace std;
 
 int n, w, ans=INT_MAX;
+int dp[201];
 pair<int, int> ev[1001];
 
 void solve(int a, int b, int cnt, int cur){
+    if(dp[cur]!=-1) return dp[cur];
     if(cnt==w+2){
         ans=min(ans, cur);
         return;
