@@ -4,12 +4,19 @@
 using namespace std;
 
 int t, n, m, dp[11][11], ans=0;
+int mov[9][2]={
+    {}
+};
 char board[11][11];
 
 int solve(int y, int x){
     if(dp[y][x]!=0) return dp[y][x];
- 
-    if(y>2) dp[y][x]+=solve(y-2, x);
+    
+    int& ret=dp[y][x];
+    if(y>2){
+        ret+=solve(y-2, x);
+        if(x>=2) ret+=solve();
+    }
 }
 
 int main(void){
