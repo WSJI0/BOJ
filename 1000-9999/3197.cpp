@@ -38,24 +38,6 @@ void merge(int u, int v){
 	}
 }
 
-void print(){
-	cout<<"````````````````\n";
-	for(int i=0; i<r; i++){
-		for(int j=0; j<c; j++){
-			if(sel(i, j)==swan[0] || sel(i, j)==swan[1]){
-				int f=find(sel(i, j)); 
-				for(int k=0; k<(4-to_string(f).size()); k++) cout<<" ";
-				cout<<"*"<<f;
-			} else{
-				int f=find(sel(i, j));
-				for(int k=0; k<(5-to_string(f).size()); k++) cout<<" ";
-				cout<<f;
-			}
-		} cout<<"\n\n";
-	}
-}
-
-
 void solve(){
 	if(find(swan[0])==find(swan[1])) return;
 	
@@ -87,8 +69,6 @@ void solve(){
 	}
 
 	ans++;
-	
-	// print();
 	
 	if(cc) solve();
 }
