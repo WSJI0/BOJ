@@ -5,7 +5,7 @@ using namespace std;
 
 string s;
 int cnt[10]={6, 2, 5, 5, 4, 5, 6, 3, 7, 5};
-int change[10][10], cur[16], n;
+int change[10][10], dp[16][16][16], n;
 
 int main(void){
     ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
@@ -19,6 +19,6 @@ int main(void){
     cin>>s;
     n=s.size();
     for(int i=0; i<n; i++) cur[i]=s[i]-'0';
-    
+
     
 }

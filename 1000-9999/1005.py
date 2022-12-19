@@ -15,6 +15,7 @@ def find(n):
     for g in graph[n]:
         res=max(res, find(g))
     dp[n]=res+D[n-1]
+
     return dp[n]
 
 t=int(input())
@@ -26,6 +27,7 @@ for _ in range(t):
         x, y=map(int, input().split())
         if y not in graph: graph[y]=[]
         graph[y].append(x)
+    
     w=int(input())
     for i in range(1, n+1): find(i)
     print(dp[w])
