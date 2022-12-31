@@ -2,6 +2,8 @@
     "files.associations": {
         "iostream": "cpp",
         "xiosbase": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "ios": "cpp",
+        "tuple": "cpp"
     }
 }
