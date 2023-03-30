@@ -1,64 +1,74 @@
-//3977번 축구 전술
-
 #include <bits/stdc++.h>
 using namespace std;
 
-int v, e, a, b, vis[100001], id=0;
-bool fin[100001];
+int t, n, m, a, b, id, sid=1;
 vector<int> graph[100001];
-vector<int> scc;
+int dp[100001], sc[100001], no[100001];
+bool vis[100001];
 stack<int> s;
 
-int dfs(int x){
-    vis[x]=++id;
-    s.push(x);
-    int parent=vis[x];
-    for(auto y:graph[x]){
-        if(vis[y]==0) parent=min(parent, dfs(y));
-        else if(!fin[y]) parent=min(parent, vis[y]);
+int scc(int cur){
+    int p=dp[cur]=++id;
+    s.push(cur);
+
+    for(auto g:graph[cur]){
+        if(dp[g] && !vis[g]) p=min(p, dp[g]);
+        else if(!dp[g]) p=min(p, scc(g));
     }
-    if(parent==vis[x]){
-        int cnt=0;
-        while(1){
-            cnt++;
-            int t=s.top(); s.pop();
-            scc.push_back(t);
-            fin[t]=1;
-            if(t==x) break;
+    if(p==dp[cur]){
+        int t=-1;
+        while(t!=cur){
+            t=s.top(); s.pop();
+            vis[t]=1;
+            sc[t]=sid;
+        } sid++;
+    }
+    return p;
+}
+
+void solve(int cur){
+    for(auto g:graph[cur]){
+        if(sc[g]!=sc[cur]){
+            if(no[sc[cur]]!=0 && no[sc[cur]]!=sc[g]) sid=-1;
+            no[sc[cur]]=sc[g];
         }
-        if(cnt==1) scc.pop_back();
     }
-    return parent;
 }
 
 int main(void){
     ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-    int t;
+    
     cin>>t;
     while(t--){
-        cin>>v>>e;
+        // for(int i=0; i<=100000; i++) graph[i].clear();
+        memset(dp, 0, sizeof(dp));
+        memset(vis, 0, sizeof(vis));
 
-        scc.clear();
-        for(int i=0; i<100000; i++){
-            graph[i].clear();
-            vis[i]=fin[i]=0;
-        }
-
-        for(int i=0; i<e; i++){
+        cin>>n>>m;
+        for(int i=0; i<m; i++){
             cin>>a>>b;
-            graph[a].push_back(b);
-            if(a==b) scc.push_back(a);
+            graph[b].push_back(a);
         }
-        for(int i=0; i<v; i++) 
-            if(vis[i]==0) dfs(i);
         
-        if(scc.size()==0){
+        for(int i=0; i<n; i++){
+            if(!vis[i]) scc(i);
+        } 
+        memset(vis, 0, sizeof(vis));
+
+        for(int i=0; i<n; i++) solve(i);
+        if(sid==-1){
             cout<<"Confused"<<"\n\n";
             continue;
         }
-        sort(scc.begin(), scc.end());
-        for(int i=0; i<scc.size(); i++){
-            cout<<scc[i]<<"\n";
+
+        vector<int> res;
+        for(int i=1; i<sid; i++){
+            if(!no[i]) res.push_back(i);
+        }
+        for(int i=0; i<n; i++){
+            for(int j:res){
+                if(sc[i]==j) cout<<i<<"\n";
+            }
         } cout<<"\n";
     }
 }

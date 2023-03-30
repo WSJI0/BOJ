@@ -1,87 +1,44 @@
-
 #include <bits/stdc++.h>
 using namespace std;
 
-#define MAXT 300000
-#define MAXA 25
+int n, m, r, plan[1001];
+int parent[201], level[201]={1, };
 
-int lenA, lenT;
-string A, T;
+int find(int u){
+    if(u==parent[u]) return u;
+    return parent[u]=find(parent[u]);
+}
 
-struct stack {
-   int top;
-   char x[MAXT+1];
-   char w[MAXA];
+void merge(int u, int v){
+    u=find(u); v=find(v);
+    if(u==v) return;
+    if(level[u]>level[v]){
+        parent[v]=u;
+        level[u]+=level[v];
+    } else{
+        parent[u]=v;
+        level[v]+=level[u];
+    }
+}
 
-   void init( string& A ) {
-      for( int i = 0; i < lenA; ++i ) w[i] = A[lenA-1-i];
-      top = 0;
-   }
+int main(void){
+    ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+    
+    for(int i=0; i<=200; i++) parent[i]=i;
 
-   int add( char c ) {
-      int ret = 0;
-      x[top++] = c;
-      if( top >= lenA ) {
-         ret = 1;
-         for( int i = 0; i < lenA; ++i ) 
-            if( x[top-i-1] != w[i] ) 
-               ret = 0;
-         if( ret ) top -= lenA;
-      }
-      return ret;
-   }
-   void print(){
-	   cout<<" print : ";
-	   for(int i=0; i<top; i++) cout<<x[i]<<" ";
-	   cout<<"\n";
-   }
-} L, D;
-
-int main( void ) {
-   /*
-   cin>>A; lenA = A.length();
-   cin>>T; lenT = T.length();
-   L.init( A );
-   reverse( A.begin(), A.end() );
-   D.init( A );
-
-   int turn = 0;
-   int lpos = 0, dpos = lenT-1;
-   while( lpos <= dpos ) {
-	   if( turn == 0 ) turn ^= L.add( T[lpos++] );
-      else turn ^= D.add( T[dpos--] );
-	  L.print();
-	  D.print();
-	  cout<<"-------------"<<"\n";
-   }
-      
-
-   D.print();
-   while( L.top ){
-      cout<<"added : "<<L.x[L.top-1]<<"\n";
-      D.add( L.x[--L.top] );
-   }
-
-   D.print();
-
-   while( D.top ) printf( "%c", D.x[--D.top] );
-   printf( "\n" );
-   */
-  string A="abcd";
-   L.init(A);
-   L.print();
-
-   L.add('a');
-   L.print();
-   L.add('b');
-   L.print();
-   L.add('c');
-   L.print();
-   L.add('d');
-   L.print();
-   L.add('e');
-   L.print();
-
-
-   return 0;
+    cin>>n>>m;
+    for(int i=1; i<=n; i++){
+        for(int j=1; j<=n; j++){
+            cin>>r;
+            if(r) merge(i, j);
+        }
+    }
+    string ans="YES";
+    for(int i=0; i<m; i++){
+        cin>>plan[i];
+        if(i>0){
+            if(find(plan[i-1])!=find(plan[i])) ans="NO";
+        }
+    }
+    cout<<ans<<"\n";
 }

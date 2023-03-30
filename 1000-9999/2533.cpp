@@ -3,37 +3,35 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, u, v, root, ans1, ans2;
-vector<int> graph[1000001];
+int n, u, v;
+vector<int> graph[1000002];
+int dp[1000002][2];
+
+int solve(int cur, int sel, int pre){
+    if(dp[cur][sel]) return dp[cur][sel];
+    if(sel) dp[cur][sel]=1;
+    for(auto g:graph[cur]){
+        if(g==pre) continue;
+        if(!sel){
+            dp[cur][sel]+=solve(g, 1, cur);
+        } else{
+            int v1=solve(g, 0, cur);
+            int v2=solve(g, 1, cur);
+            dp[cur][sel]+=min(v1, v2);
+        }
+    }
+    return dp[cur][sel];
+}
 
 int main(void){
     ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
     
     cin>>n;
-    cin>>u>>v;
-    root=u;
-    graph[u].push_back(v);
-    for(int i=0; i<n-2; i++){
+    for(int i=0; i<n-1; i++){
         cin>>u>>v;
         graph[u].push_back(v);
-        if(root==v) root=u;
+        graph[v].push_back(u);
     }
 
-    queue<int> q;
-    q.push(root);
-    
-    int cnt=0;
-    while(!q.empty()){
-        int qs=q.size();
-        while(qs--){
-            if(cnt%2==0) ans1++;
-            else ans2++;
-            int node=q.front(); q.pop();
-            for(int i:graph[node])
-                q.push(i);
-        }
-        cnt++;
-    }
-
-    cout<<min(ans1, ans2)<<"\n";
+    cout<<min(solve(1, 1, 0), solve(1, 0, 0))<<"\n";
 }

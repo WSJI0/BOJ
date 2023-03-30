@@ -1,4 +1,4 @@
-//2887번 행성 터널 (미완성)
+//2887번 행성 터널
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -7,27 +7,59 @@ struct coor{
     int x, y, z;
 };
 
-bool cmpX(coor& p1, coor& p2){
-    return p1.x>p2.x;
+int n, x, y, z;
+int parent[100001], level[100001]={1, };
+vector<tuple<int, int, int>> path;
+vector<pair<int, int>> X, Y, Z;
+
+int find(int u){
+    if(u==parent[u]) return u;
+    return parent[u]=find(parent[u]);
 }
-bool cmpY(coor& p1, coor& p2){
-    return p1.y>p2.y;
-}
-bool cmpZ(coor& p1, coor& p2){
-    return p1.z>p2.z;
+
+void merge(int u, int v){
+    u=find(u); v=find(v);
+    if(u==v) return;
+    if(level[u]>level[v]){
+        parent[v]=u;
+        level[u]+=level[v];
+    } else{
+        parent[u]=v;
+        level[v]+=level[u];
+    }
 }
 
 int main(void){
     ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-    int n, x, y, z;
+    
+    for(int i=0; i<=100000; i++) parent[i]=i;
+
     cin>>n;
     vector<coor> planet(n);
     for(int i=0; i<n; i++){
         cin>>planet[i].x>>planet[i].y>>planet[i].z;
+        X.push_back({planet[i].x, i});
+        Y.push_back({planet[i].y, i});
+        Z.push_back({planet[i].z, i});
     }
-    vector<pair<int, coor>> p;
-    sort(planet.begin(), planet.end(), cmpX);
-    for(int i=0; i<n-1; i++)
-        p.push_back(make_pair(planet[i+1].x-planet[i].x, planet[i]));
-    
+    sort(X.begin(), X.end());
+    sort(Y.begin(), Y.end());
+    sort(Z.begin(), Z.end());
+    for(int i=0; i<n-1; i++){
+        path.push_back({X[i+1].first-X[i].first, X[i].second, X[i+1].second});
+        path.push_back({Y[i+1].first-Y[i].first, Y[i].second, Y[i+1].second});
+        path.push_back({Z[i+1].first-Z[i].first, Z[i].second, Z[i+1].second});
+    }
+    sort(path.begin(), path.end());
+
+    int ans=0;
+    for(int i=0; i<path.size(); i++){
+        int dis, s, e;
+        tie(dis, s, e)=path[i];
+        if(find(s)==find(e)) continue;
+        ans+=dis;
+        merge(s, e);
+    }
+
+    cout<<ans<<"\n";
 }

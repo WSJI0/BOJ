@@ -17,16 +17,12 @@ def mr(n, a):
     d=n-1
     while True:
         p=modPow(a, d, n)
-        if p==n-1 or p==1: return True
+        if p==n-1: return True
         if d%2: return (p==1 or p==n-1)
         d//=2
 
 def isPrime(n):
     if n<=3: return False
-    if n<=10000:
-        for i in range(2, int(n**0.5)+1):
-            if n%i==0: return False
-        return True
 
     base=[2, 7, 61]
     for a in base:
@@ -34,8 +30,10 @@ def isPrime(n):
     return True
 
 t=int(input())
+
 ans=0
 for _ in range(t):
     n=int(input())
     if isPrime(2*n+1): ans+=1
+
 print(ans)

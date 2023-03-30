@@ -20,4 +20,5 @@ def phi(n):
 while True:
     n=int(input())
     if n==0: break
-    print(phi(n))
+    if n==1: print(0)
+    else: print(phi(n))

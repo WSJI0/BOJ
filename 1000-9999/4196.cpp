@@ -3,55 +3,54 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int v, e, a, b, vis[10001], id=0, t;
-bool fin[10001];
-vector<int> graph[10001];
-vector<vector<int>> scc;
+int t, n, m, u, v, id;
+vector<int> graph[100001];
+int visited[100001];
+bool fin[100001];
 stack<int> s;
 
-int dfs(int x){
-    vis[x]=++id;
-    s.push(x);
-    int parent=vis[x];
-    for(auto y:graph[x]){
-        if(vis[y]==0) parent=min(parent, dfs(y));
-        else if(!fin[y]) parent=min(parent, vis[y]);
+int solve(int cur){
+    int p=visited[cur]=++id;
+    s.push(cur);
+
+    for(auto g:graph[cur]){
+        if(visited[g]==0) p=min(p, solve(g));
+        else if(!fin[g]) p=min(p, visited[g]);
     }
-    if(parent==vis[x]){
-        vector<int> sc;
-        while(1){
-            int t=s.top(); s.pop();
-            sc.push_back(t);
+
+    if(p==visited[cur]){
+        int t=-1;
+        while(t!=cur){
+            t=s.top(); s.pop();
             fin[t]=1;
-            if(t==x) break;
         }
-        scc.push_back(sc);
     }
-    return parent;
+    return p;
 }
 
 int main(void){
     ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+    
     cin>>t;
     while(t--){
-        cin>>v>>e;
-        scc.clear(); id=0;
-        for(int i=0; i<10001; i++){
+        for(int i=0; i<=100000; i++){
             graph[i].clear();
-            fin[i]=vis[i]=0;
-        }
-        for(int i=0; i<e; i++){
-            cin>>a>>b;
-            graph[a].push_back(b);
-        }
-        for(int i=1; i<=v; i++) 
-            if(vis[i]==0) dfs(i);
+            visited[i]=0;
+        } id=0;
 
-        cout<<scc.size()<<"\n";
-        for(int i=0; i<scc.size(); i++){
-            for(int j=0; j<scc[i].size(); j++)
-                cout<<scc[i][j]<<" ";
-            cout<<"-1"<<"\n";
+        cin>>n>>m;
+        for(int i=0; i<n; i++){
+            cin>>u>>v;
+            graph[u].push_back(v);
         }
+
+        int ans=0;
+        for(int i=1; i<=n; i++){
+            if(visited[i]==0){
+                solve(i);
+                ans++;
+            }
+        }
+        cout<<ans<<"\n";
     }
 }

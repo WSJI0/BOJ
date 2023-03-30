@@ -4,6 +4,20 @@
         "xiosbase": "cpp",
         "queue": "cpp",
         "ios": "cpp",
-        "tuple": "cpp"
+        "tuple": "cpp",
+        "utility": "cpp",
+        "iosfwd": "cpp",
+        "cmath": "cpp",
+        "stack": "cpp",
+        "vector": "cpp",
+        "algorithm": "cpp",
+        "map": "cpp",
+        "xstring": "cpp",
+        "random": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "memory": "cpp",
+        "mutex": "cpp",
+        "xtree": "cpp"
     }
 }
