@@ -35,4 +35,8 @@
 *.out
 *.app
 
+*.code-workspace
+*.gitignore
+*.json
+
 # End of https://www.toptal.com/developers/gitignore/api/c++
