@@ -13,5 +13,10 @@
 			"path": "Algorithm"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"files.associations": {
+			"vector": "cpp",
+			"xstring": "cpp"
+		}
+	}
 }
