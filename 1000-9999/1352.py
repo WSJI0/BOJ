@@ -1,10 +1,3 @@
-'''
-1352번
-문자열
-
-미완성
-'''
-
 import sys
 input=sys.stdin.readline
 

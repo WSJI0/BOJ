@@ -1,17 +1,14 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, a[10001];
+int n, m, k, s, t, u, v, w;
 
 int main(void){
     ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
     
-    cin>>n;
-    for(int i=0; i<n; i++) cin>>a[i];
-
-
+    cin>>n>>m>>k>>s>>t;
+    for(int i=0; i<m; i++){
+        cin>>u>>v;
+        
+    }
 }
-
-
-2 8 1 5 4 3 0 9
-
