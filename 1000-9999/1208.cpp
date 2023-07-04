@@ -1,10 +1,9 @@
-// 1208번 부분수열의 합 2 (미완성)
-
 #include <bits/stdc++.h>
 using namespace std;
+#define ll long long int
 
 int n, s, a;
-int ans[8000001];
+ll ans[8000001];
 
 int main(void){
     ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);

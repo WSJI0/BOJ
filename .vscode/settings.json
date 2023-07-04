@@ -19,8 +19,9 @@
         "memory": "cpp",
         "mutex": "cpp",
         "xtree": "cpp",
+        "limits": "cpp",
         "initializer_list": "cpp",
-        "type_traits": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "xlocale": "cpp"
     }
 }

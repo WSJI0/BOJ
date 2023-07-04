@@ -21,8 +21,7 @@ void solve(int cur){
         if(check()){
             cout<<s<<"\n";
             exit(0);
-        }
-        return;
+        } return;
     }
     s[g[cur]]='(';
     solve(cur+1);

@@ -9,5 +9,9 @@ int main(void){
     cin>>n;
     for(int i=0; i<n; i++) cin>>a[i];
 
-    
+
 }
+
+
+2 8 1 5 4 3 0 9
+
