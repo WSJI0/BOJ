@@ -1,53 +1,52 @@
-// 1019번 책 페이지
-
 #include <bits/stdc++.h>
 using namespace std;
+#define ll long long int
 
-string n;
-int ans[10];
+string s;
+ll ans[10];
 
-int ppow(int num, int k){
-    int ret=1;
-    for(int i=0; i<k; i++) ret*=num;
-    return ret;
+void solve(int cur){
+    if(cur==s.size()) return;
+
+    for(int i=0; i<10; i++){
+        if(cur==0 && i==0) continue;
+        if((s[cur]-'0')>i){
+            ll p=1, tmp=0, pp=pow(10, s.size()-1);
+            if(cur==0) ans[i]+=pp;
+            else{
+                for(int j=cur-1; j>=0; j--){
+                    tmp+=p*(s[j]-'0');
+                    p*=10;
+                } tmp+=(i==0? 0:1); 
+                while(tmp!=0 && tmp<pp) tmp*=10;
+                ans[i]+=tmp/10;
+            }
+        } else if((s[cur]='0')==i){
+            ll p=1, tmp=0;
+            for(int j=s.size()-1; j>=0; j--){
+                if(j==cur) continue;
+                tmp+=p*(s[j]-'0');
+                p*=10;
+            } ans[i]+=tmp+1;
+        } else{
+            ll p=1, tmp=0, pp=pow(10, s.size()-1);
+            for(int j=cur-1; j>=0; j--){
+                tmp+=p*(s[j]-'0');
+                p*=10;
+            } tmp+=(i==0? 0:1); 
+            while(tmp!=0 && tmp<pp) tmp*=10;
+            ans[i]+=tmp/10;
+        }
+    } solve(cur+1);
 }
 
-int change(int e){
-    if(e==-1) return 0;
-    int cur=1, ret=0;
-    for(int i=e; i>=0; i--){
-        ret+=(n[i]-'0')*cur;
-        cur*=10;
-    }
-    return ret;
-}
+int main(void){
+    ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 
-int main(void){ 
-    ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-    
-    cin>>n;
+    cin>>s;
+    solve(0);
 
-    int ns=n.size();
-    for(int i=ns-1; i>=0; i--){
-        for(int j=0; j<=(n[i]-'0'); j++){
-            if(i==0 && j==0) continue;
-            else if(j==0)
-                ans[j]+=change(i-1)*ppow(10, ns-i-1);
-            else ans[j]+=(change(i-1)+1)*ppow(10, ns-i-1);
-        }
-        for(int j=(n[i]-'0')+1; j<=9; j++){
-            ans[j]+=change(i-1)*ppow(10, ns-i-1);
-        }
-    }
-
-    for(int i=0; i<=9; i++) cout<<ans[i]<<" ";
+    ans[0]++;
+    for(int i=0; i<10; i++) cout<<ans[i]<<" ";
     cout<<"\n";
 }
-
-
-1234567
-
-0, 1, 2
-
-x1xxxxx
-9*10^5 - (8*10^5) - 

@@ -20,7 +20,7 @@ def change(n):
 def sor(a):
     for i in range(len(a)-1, -1, -1):
         for j in range(i):
-            if 36*a[j][1]-(dic.index(a[j][0])*a[j][1])<36*a[j+1][1]-(dic.index(a[j+1][0])*a[j+1][1]): 
+            if int(a[j][0], 36)*a[j][1]-int('Z', 36)*a[j][1]>int(a[j+1][0], 36)*a[j+1][1]-int('Z', 36)*a[j+1][1]: 
                 a[j],a[j+1]=a[j+1],a[j]
     return a
 
@@ -29,7 +29,14 @@ n=int(input())
 ori=[]
 val={}
 for _ in range(n):
-    num=input().rstrip()
+    tmp=input().rstrip()
+    idx=0
+    for i in range(len(tmp)):
+        if tmp[i]!='0': break
+        idx+=1
+    num=tmp[idx:]
+    if num=="": num="0"
+
     ori.append(num)
     for i in range(len(num)):
         if num[i] not in val: val[num[i]]=0
