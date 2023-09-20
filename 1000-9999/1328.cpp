@@ -1,33 +1,19 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define mod 1000000007
 #define ll long long int
+#define MOD 1000000007
 
 int n, l, r;
-int dp[101][101][101][101], v[101];
+ll dp[101][101][101];
 
-int solve(int l, int lm, int r, int rm){
-    if(dp[l][lm][r][rm]) return dp[l][lm][r][rm];
-    if(l==0 && r==0){
-        
-    }
+ll solve(int cur, int l, int r){
+    if(cur==1 && l==1 && r==1) return 1;
 
-    int& ret=dp[l][lm][r][rm];
-
-    for(int i=lm; i<=n; i++){
-        for(int j=rm; j<=n; j++){
-            if(l>0) l--;
-            if(r>0) r--;
-            ret=(ret+solve(l, i, r, j))%mod;
-        }
-    }
-
-    return ret;
 }
 
 int main(void){
-    ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-    
+    ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+
     cin>>n>>l>>r;
-    cout<<solve(l, 0, r, 0)<<"\n";
+    
 }

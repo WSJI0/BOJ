@@ -2,27 +2,38 @@
 using namespace std;
 #define ll long long int
 
-int n, matrix[501][2];
-ll dp[501][501];
+int n;
+struct{ int r, c; } matrix[501];
+struct ret{
+    ll r, c, v;
+};
+ret dp[501][501];
 
-ll solve(int l, int r){
-    if(l==r) return 0;
-    if(l+1==r) return matrix[l][0]*matrix[l][1]*matrix[r][1];
-    if(dp[l][r]!=0) return dp[l][r];
+ret solve(int L, int R){
+    if(L==R) return {matrix[L].r, matrix[R].c, 0};
+    if(L+1==R) 
+        return {matrix[L].r, matrix[R].c, matrix[L].r*matrix[L].c*matrix[R].c};
+    if(dp[L][R].v) return dp[L][R];
 
-    dp[l][r]=LLONG_MAX;
-    for(int i=l; i<r; i++){
-        dp[l][r]=min(dp[l][r], (matrix[l][0]*matrix[l][1]*matrix[r][1])+solve(l, i)+solve(i+1, r));
-    } return dp[l][r];
+    dp[L][R].v=LLONG_MAX;
+    for(int i=L; i<R; i++){
+        ret tmp_l=solve(L, i);
+        ret tmp_r=solve(i+1, R);
+        ll res=tmp_l.r*tmp_l.c*tmp_r.c;
+        if(dp[L][R].v>tmp_l.v+tmp_r.v+res){
+            dp[L][R].v=tmp_l.v+tmp_r.v+res;
+            dp[L][R].r=tmp_l.r;
+            dp[L][R].c=tmp_r.c;
+        }
+    } 
+    return dp[L][R];
 }
 
 int main(void){
     ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 
     cin>>n;
-    for(int i=0; i<n; i++){
-        cin>>matrix[i][0]>>matrix[i][1];
-    }
+    for(int i=0; i<n; i++) cin>>matrix[i].r>>matrix[i].c;
 
-    cout<<solve(0, n-1)<<"\n";
+    cout<<solve(0, n-1).v<<"\n";
 }
